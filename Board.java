@@ -28,8 +28,17 @@ public class Board{
    public String toString(){
       //toString, 0=empty=space, 1=red=R, 2=yellow=Y
       
-      //for loop
-         //if state 
+      /*for(int x = 0; x < this.width; x++){
+         for(int y = 0; y < this.height; y++){
+            this.boardArr[x][y] = 0;
+         }
+      }*/
+      for (int i = 0; i < this.boardArr.length; i++){
+         for(int j = 0; j < this.boardArr[i].length; j++){
+            StdOut.print(" [" + this.boardArr[i][j] + "]");
+         }
+         StdOut.println();
+      }
    }
    
    public boolean won(){
