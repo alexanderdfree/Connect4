@@ -25,33 +25,45 @@ public class Board{
    }
    
    
-   public String toString(){
+   public void print(){
       //toString, 0=empty=space, 1=red=R, 2=yellow=Y
       
-      /*for(int x = 0; x < this.width; x++){
-         for(int y = 0; y < this.height; y++){
-            this.boardArr[x][y] = 0;
-         }
-      }*/
       for (int i = 0; i < this.boardArr.length; i++){
          for(int j = 0; j < this.boardArr[i].length; j++){
-            StdOut.print(" [" + this.boardArr[i][j] + "]");
+            char temp = ' ';
+            
+            if (this.boardArr[i][j] == 1) temp = 'R';
+            if (this.boardArr[i][j] == 2) temp = 'Y';
+            
+            StdOut.print(" [" + temp + "]");
+            
          }
          StdOut.println();
       }
    }
    
-   public boolean won(){
+   public int won(){
+      //returns int of player that won
+      
       //for loop if 4 are in a row
       
       //for loop for if the board is full
+      
+      return 0; //placeholder
    }
    public boolean columnIsFull(int column){
       //similar code to drop
+      
+      //if the column is full, return true
+         //for loop
+      
+      //else return false
+      
+      return false; //placeholder
    }
    
    public void main(String[] args){
-      //"ui", std in, std out
+      //"ui", std in, std out, print after every turn
    }
    
 }
