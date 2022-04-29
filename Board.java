@@ -19,11 +19,30 @@ public class Board{
    //
    public void drop(int column){
    
+      //find first empty space thinking from the bottom
+      
+      //if not, do nothing
    }
    
-   //toString, 0=empty=space, 1=red=
+   
    public String toString(){
+      //toString, 0=empty=space, 1=red=R, 2=yellow=Y
       
+      //for loop
+         //if state 
+   }
+   
+   public boolean won(){
+      //for loop if 4 are in a row
+      
+      //for loop for if the board is full
+   }
+   public boolean columnIsFull(int column){
+      //similar code to drop
+   }
+   
+   public void main(String[] args){
+      //"ui", std in, std out
    }
    
 }
