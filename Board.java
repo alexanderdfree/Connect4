@@ -1,13 +1,24 @@
 public class Board{
    //instance variables
+   private int player;
    private int width;
    private int height;
    private int boardArr[][];
    
    //constructor
-   public Board(int w, int h){
+   public Board(int w, int h, String p){
+      if(p.equals("red"))
+         this.player = 1;
+      if(p.equals("yellow"))
+         this.player = 2;
+      else{
+         StdOut.println("Invalid color, player set to red");
+         this.player = 1;
+      }
+      
       this.width = 7; //ignore user instructions for now
       this.height = 6;
+      
       this.boardArr = new int[w][h];
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
@@ -17,10 +28,15 @@ public class Board{
    }
    
    //
-   public void drop(int column){
-   
+   public void drop(int column, int user){
+      int rowToPlace = 0;
       //find first empty space thinking from the bottom
-      
+      for(int i = 0; i<height; i++){
+         if(boardArr[column][i]==0){
+            boardArr[column][i] = user;
+            break;
+         }
+      }
       //if not, do nothing
    }
    
