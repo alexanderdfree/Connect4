@@ -9,6 +9,12 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    
    //constructor
    public Connect4(int w, int h, String p){
+      /*Constructor
+         Input: int w (width), int h (height), String p (player)
+         Output: none
+         Side Effects: create new Connect4, assign instance variables
+      */
+      
       if(p.equals("red"))
          this.player = 1;
       if(p.equals("yellow"))
@@ -29,13 +35,19 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       }
    }
    
-   //
+   
    public boolean drop(int column, int user){
+      /* drops a token with the given player's color
+            in the specified column, simulating gravity 
+         Input: int column, int user (# id of player)
+         Output: boolean (whether it worked or not)
+         Side Effects: update board[][]
+      */
       int rowToPlace = 0;
       //find first empty space thinking from the bottom
       for(int i = 0; i < height; i++){
-         if(board[column][i] == 0){
-            board[column][i] = user;
+         if(this.board[column][i] == 0){
+            this.board[column][i] = user;
             return true;
          }
          else return false; //if not, do nothing - return false so we know it didn't work
@@ -47,7 +59,12 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    
    
    public void print(){
-      //toString, 0=empty=space, 1=red=R, 2=yellow=Y
+      /* essentially a toString() method for the board 
+            (0=empty=space, 1=red=R, 2=yellow=Y)
+         Input: none, uses this.board[][]
+         Output: StdOut prints the board
+         Side Effects: none
+      */ 
       
       for (int i = 0; i < this.board.length; i++){
          for(int j = 0; j < this.board[i].length; j++){
