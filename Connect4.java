@@ -50,9 +50,8 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
             this.board[column][i] = user;
             return true;
          }
-         else return false; //if not, do nothing - return false so we know it didn't work
       }
-      return false; //just in case, this line should never happen (ex. height = 0)
+      return false; //if not, do nothing - return false so we know it didn't work
       
       
    }
