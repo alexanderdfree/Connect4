@@ -31,6 +31,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          }
       }
    }
+   
    public char getSpot(int x, int y){
       if(board[x][y] == 0) return 'E';
       else if(board[x][y] == 1) return 'R';
@@ -57,10 +58,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          }
       }
       return false; //if not, do nothing - return false so we know it didn't work
-      
-      
    }
-   
    
    public void print(){
       /* essentially a toString() method for the board 
@@ -84,20 +82,63 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    }
    
    public int gameStatus(){
-      //returns int of player that won, 0 for draw
+      //returns int of player that won, 0 for draw, -1 for still going
       
       //for loop if 4 are in a row
          //for loop for vertical and horizontal terminates -> i < height - 4, width - 4
          //diagonal will be annoying, look at board and think of possible options
          
+      for(int x = 0; x < this.width; x++){
+         for(int y = 0; y < this.height; y++){
+            int spot = this.board[x][y];
+            int spotsToCheck = 1;
+            int connected = 1;
+            while (spotsToCheck > 0){ //find a method that will run through for each direction, maybe while loop for each one
+               //left
+               if (x > 3){
+                  //if (spot !=)
+               }
+               //right
+               if (x < width-4){
+               
+               }
+               //above
+               if (y < height-4){
+               
+               }
+               //below
+               if (y > 3){
+               
+               }
+               //upRight
+               if (y < height-4 && x < width-4){
+               
+               }
+               //downRight
+               if (y > 3 && x < width-4){
+               
+               }
+               //upLeft
+               if (y < height-4 && x > 3){
+               
+               }
+               //downLeft
+               if (y > 3 && x > 3){
+               
+               }
+            }   
+         }
+      }
          
       //for loop for if the board is full
-      
-      /*for( EACH ROW ){
-         if ALL COLUMNS ARE FULL return 0;
-      }*/
-      return 0; //placeholder
+      int count = 0;
+      for(int x = 0; x < this.width; x++){
+         if(this.board[x][this.height] != 0) count++;
+      }
+      if (count == this.width) return 0;
+      return -1; //if 1. nobody has 4 in a row, 2. the board still has room
    }
+   
    public boolean columnIsFull(int column){
       
       //if the first row of the column is full, return true
@@ -109,5 +150,5 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    public void main(String[] args){
       //"ui", std in, std out, print after every turn, check win vs. draw, etc
    }
-   
+
 }
