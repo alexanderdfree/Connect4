@@ -2,12 +2,11 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    //DECIDE WHETHER OR NOT WE DO 2 CLASSES, WHETHER TO EXTEND BOT?
    
    //instance variables
-   private int player;
-   private int width;
-   private int height;
-   private int board[][];
+   private int player; //1 for red, 2 for yellow
+   private int width; //board width
+   private int height; //board height
+   private int board[][]; //board 2D array -> board[width][height]
    
-   //constructor
    public Connect4(int w, int h, String p){
       /*Constructor
          Input: int w (width), int h (height), String p (player)
@@ -43,6 +42,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          Output: boolean (whether it worked or not)
          Side Effects: update board[][]
       */
+      
       int rowToPlace = 0;
       //find first empty space thinking from the bottom
       for(int i = 0; i < height; i++){
@@ -97,7 +97,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    public boolean columnIsFull(int column){
       
       //if the first row of the column is full, return true
-      if(board[column][this.height] != 0) return true;
+      if(board[column][this.height-1] != 0) return true;
       else return false;
       
    }
