@@ -33,17 +33,17 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    }
    
    
-   public boolean drop(int column, int user){
+   public boolean drop(int x, int user){
       /* drops a token with the given player's color
             in the specified column, simulating gravity 
-         Input: int column, int user (# id of player)
+         Input: int x, int user (# id of player)
          Output: boolean (whether it worked or not)
          Side Effects: update board[][]
       */
       
       int rowToPlace = 0;
       //find first empty space thinking from the bottom
-      for(int i = 0; i < height; i++){
+      for(int i = 0; i < this.height; i++){
          if(this.board[column][i] == 0){
             this.board[column][i] = user;
             return true;
@@ -63,12 +63,12 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          Side Effects: none
       */ 
       
-      for (int i = 0; i < this.board.length; i++){
-         for(int j = 0; j < this.board[i].length; j++){
+      for (int x = 0; x < this.width; x++){
+         for(int y = 0; y < this.height; y++){
             char temp = ' ';
             
-            if (this.board[i][j] == 1) temp = 'R';
-            if (this.board[i][j] == 2) temp = 'Y';
+            if (this.board[x][y] == 1) temp = 'R';
+            if (this.board[x][y] == 2) temp = 'Y';
             
             StdOut.print(" [" + temp + "]");
             
