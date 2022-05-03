@@ -41,11 +41,10 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          Side Effects: update board[][]
       */
       
-      int rowToPlace = 0;
       //find first empty space thinking from the bottom
       for(int i = 0; i < height; i++){
-         if(this.board[column][i] == 0){
-            this.board[column][i] = user;
+         if(this.board[i][column] == 0){
+            this.board[i][column] = user;
             return true;
          }
       }
