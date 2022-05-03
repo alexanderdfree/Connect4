@@ -31,7 +31,11 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          }
       }
    }
-   
+   public char getSpot(int x, int y){
+      if(board[x][y] == 0) return 'E';
+      else if(board[x][y] == 1) return 'R';
+      return 'Y';
+   }
    
    public boolean drop(int x, int user){
       /* drops a token with the given player's color
@@ -49,6 +53,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          if(this.board[x][y] == 0){
             this.board[x][y] = user; //place the token at (column (x), row (y))
             return true; //return true to show method dropped sucessfully
+
          }
       }
       return false; //if not, do nothing - return false so we know it didn't work
