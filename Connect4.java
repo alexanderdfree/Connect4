@@ -17,7 +17,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       
       if(p.equals("red"))
          this.player = 1;
-      if(p.equals("yellow"))
+      else if(p.equals("yellow"))
          this.player = 2;
       else{
          StdOut.println("Invalid color, player set to red");
