@@ -43,10 +43,12 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       
       //find first empty space thinking from the bottom
       
-      for(int i = 0; i < this.height; i++){
-         if(this.board[column][i] == 0){
-            this.board[column][i] = user;
-            return true;
+      //for every y-slot on the board
+      for(int y = 0; y < this.height; y++){
+         //if the slot is empty
+         if(this.board[x][y] == 0){
+            this.board[x][y] = user; //place the token at (column (x), row (y))
+            return true; //return true to show method dropped sucessfully
          }
       }
       return false; //if not, do nothing - return false so we know it didn't work
@@ -62,9 +64,8 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          Output: StdOut prints the board
          Side Effects: none
       */ 
-      
-      for (int x = 0; x < this.width; x++){
-         for(int y = 0; y < this.height; y++){
+      for(int y = this.height - 1; y >= 0; y--){
+         for (int x = 0; x < this.width; x++){
             char temp = ' ';
             
             if (this.board[x][y] == 1) temp = 'R';
