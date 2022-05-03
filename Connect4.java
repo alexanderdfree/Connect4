@@ -31,7 +31,11 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          }
       }
    }
-   
+   public char getSpot(int x, int y){
+      if(board[x][y] == 0) return 'E';
+      else if(board[x][y] == 1) return 'R';
+      return 'Y';
+   }
    
    public boolean drop(int x, int user){
       /* drops a token with the given player's color
@@ -43,9 +47,9 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       
       //find first empty space thinking from the bottom
       
-      for(int i = 0; i < this.height; i++){
-         if(this.board[column][i] == 0){
-            this.board[column][i] = user;
+      for(int y = 0; y < this.height; y++){
+         if(this.board[x][y] == 0){
+            this.board[x][y] = user;
             return true;
          }
       }
