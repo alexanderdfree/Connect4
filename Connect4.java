@@ -149,6 +149,43 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
    
    public void main(String[] args){
       //"ui", std in, std out, print after every turn, check win vs. draw, etc
+      
+      while(this.gameStatus()==-1){//check if the game is over
+      
+         //print the board
+         this.print();
+         
+         //red player
+         StdOut.println("red to move");
+         String move = StdIn.readLine();
+         this.drop(Integer.parseInt(move), 1);
+         
+         //check if the game is over
+         if(this.gameStatus()!=-1){
+            break;
+         }
+         
+         //print the board
+         this.print();
+         
+         //yellow player
+         StdOut.println("yellow to move");
+         move = StdIn.readLine();
+         this.drop(Integer.parseInt(move), 2);
+      }
+      
+      this.print();
+      
+      //print who won
+      if(this.gameStatus()==1){
+         StdOut.println("RED WON!");
+      }
+      else if(this.gameStatus()==2){
+         StdOut.println("YELLOW WON");
+      }
+      else{
+         StdOut.println("DRAW!");
+      }
    }
 
 }
