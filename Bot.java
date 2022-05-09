@@ -15,7 +15,7 @@ public class Bot{
       if (c.gameStatus() == 0){
          return 0;
       }
-      if (c.gameStatus() != this.player){
+      if (c.gameStatus() != this.player && c.gameStatus() >= 1){
          return -1;
       }
       int total = 0;
