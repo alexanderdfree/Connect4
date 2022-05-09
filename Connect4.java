@@ -7,20 +7,14 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
    private int height; //board height
    private int board[][]; //board 2D array -> board[width][height]
    
-   public Connect4(int w, int h, String p){
+   public Connect4(int w, int h, int p){
       /*Constructor
          Input: int w (width), int h (height), String p (player)
          Output: none
          Side Effects: create new Connect4, assign instance variables
       */
       
-      if(p.equals("red")) this.player = 1;
-      else if(p.equals("yellow")) this.player = 2;
-      else{
-         StdOut.println("Invalid color, player set to red");
-         this.player = 1;
-      }
-      
+      this.player = p;
       this.width = 7; //ignore user instructions for now
       this.height = 6;
       
@@ -239,31 +233,95 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
    
    public static void main(String[] args){
       //"ui", std in, std out, print after every turn, check win vs. draw, etc
-      Connect4 game = new Connect4(7, 6, "red");
-      while(game.gameStatus()==-1){//check if the game is over
-      
-         //print the board
-         game.print();
-         
-         //red player
-         StdOut.println("red to move");
-         String move = StdIn.readLine();
-         game.drop(Integer.parseInt(move), 1);
-         
-         //check if the game is over
-         if(game.gameStatus()!=-1){
-            break;
+      StdOut.println("Red or Yellow?");
+      String color = StdIn.readLine();
+      int colorInt = 2;
+      if(color.equals("red") || color.equals("Red") || color.equals("R") || color.equals("r")) colorInt = 1;
+      Connect4 game = new Connect4(7, 6, colorInt);
+      StdOut.println("Would you like to play against a bot? Yes or no.");
+      String botBool = StdIn.readLine();
+      if(botBool.equals("Yes") || botBool.equals("Y") || botBool.equals("yes") || botBool.equals("y")){
+         Bot b = new Bot(colorInt%2+1);
+         if(colorInt == 1){
+            while(game.gameStatus()==-1){//check if the game is over
+            
+               //print the board
+               game.print();
+               
+               //red player
+               StdOut.println("red to move");
+               String move = StdIn.readLine();
+               game.drop(Integer.parseInt(move), 1);
+               
+               //check if the game is over
+               if(game.gameStatus()!=-1){
+                  break;
+               }
+               
+               //print the board
+               game.print();
+               
+               //yellow player
+               StdOut.println("yellow to move");
+               int botMove = b.findMove(game);
+               StdOut.println("bot drops a yellow piece in column " + botMove);
+               game.drop(botMove, 2);
+            }
          }
-         
-         //print the board
-         game.print();
-         
-         //yellow player
-         StdOut.println("yellow to move");
-         move = StdIn.readLine();
-         game.drop(Integer.parseInt(move), 2);
+         else{
+            while(game.gameStatus()==-1){//check if the game is over
+            
+               //print the board
+               game.print();
+               
+               //red player
+               StdOut.println("red to move");
+               String move = StdIn.readLine();
+               
+               int botMove = b.findMove(game);
+               StdOut.println("bot drops a red piece in column " + botMove);
+               game.drop(botMove, 1);
+               
+               //check if the game is over
+               if(game.gameStatus()!=-1){
+                  break;
+               }
+               
+               //print the board
+               game.print();
+               
+               //yellow player
+               StdOut.println("yellow to move");
+               move = StdIn.readLine();
+               game.drop(Integer.parseInt(move), 2);
+            }
+         }
       }
-      
+      else{
+         while(game.gameStatus()==-1){//check if the game is over
+         
+            //print the board
+            game.print();
+            
+            //red player
+            StdOut.println("red to move");
+            String move = StdIn.readLine();
+            game.drop(Integer.parseInt(move), 1);
+            
+            //check if the game is over
+            if(game.gameStatus()!=-1){
+               break;
+            }
+            
+            //print the board
+            game.print();
+            
+            //yellow player
+            StdOut.println("yellow to move");
+            move = StdIn.readLine();
+            game.drop(Integer.parseInt(move), 2);
+         }
+      }
       game.print();
       
       //print who won
