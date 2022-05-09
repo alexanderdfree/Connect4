@@ -1,4 +1,4 @@
-public class Connect4 extends Bot{ // things to fix: spacing, method contracts, making sure we standardize thinking of top vs. bottom
+public class Connect4{ // things to fix: spacing, method contracts, making sure we standardize thinking of top vs. bottom
    //DECIDE WHETHER OR NOT WE DO 2 CLASSES, WHETHER TO EXTEND BOT?
    
    //instance variables
@@ -37,7 +37,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       else if(board[x][y] == 1) return 'R';
       return 'Y';
    }
-   public static int[] openMoves(){
+   public int[] openMoves(){
       int count = 0;
       //int newInts[];
       for(int x = 0; x < this.width; x++){

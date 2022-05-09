@@ -26,21 +26,22 @@ public class Bot{
       return total;
    }
    public static int minimax(){
-   //returns best move as column integer
+      //returns best move as column integer
+      return 0;
    }
    
-   public static int winner(Connect4 c){
+   /*public static int winner(Connect4 c){
       //check who wins given a hypothetical board
-      for(int x = 0; x < this.width; x++){
-         for(int y = 0; y < this.height; y++){
-            int spot = this.board[x][y];
+      for(int x = 0; x < c.getWidth(); x++){
+         for(int y = 0; y < c.getHeight(); y++){
+            int spot = c.getSpot(x, y);
             //int spotsToCheck = 1;
             int connected = 1;
             //find a method that will run through for each direction, maybe while loop for each one
             //left
             if(spot != 0){
                if (x > 3){
-                  if (spot == this.board[x-1][y]){
+                  if (spot == c.board[x-1][y]){
                      if (spot == this.board[x-2][y]){
                         if (spot == this.board[x-3][y]){
                            return spot;
@@ -122,7 +123,7 @@ public class Bot{
             }
          }
    }
-   }
+   }*/
    public static void staticDrop(Connect4 c){
       //drop function but static version
    }
