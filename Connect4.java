@@ -71,14 +71,11 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       }
       return; //if not, do nothing
    }
-   public void undrop(int x, int user){
-      for(int y = 0; y < this.height; y++){
+   public void undrop(int x){
+      for(int y = this.height-1; y > 0; y--){
          //if the slot is filled
-         if(this.board[x][y] == user){
-            this.board[x][y] = 0; //remove the token at (column (x), row (y))
-            return; //return blank to end
-
-         }
+         this.board[x][y] = 0; //remove the token at (column (x), row (y))
+         return; //return blank to end
       }
       return; //if not, do nothing
    }
