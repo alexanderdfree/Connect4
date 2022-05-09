@@ -91,42 +91,92 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
             int spot = this.board[x][y];
-            int spotsToCheck = 1;
+            //int spotsToCheck = 1;
             int connected = 1;
-            while (spotsToCheck > 0){ //find a method that will run through for each direction, maybe while loop for each one
-               //left
+            //find a method that will run through for each direction, maybe while loop for each one
+            //left
+            if(spot != 0){
                if (x > 3){
-                  //if (spot !=)
+                  if (spot == this.board[x-1][y]){
+                     if (spot == this.board[x-2][y]){
+                        if (spot == this.board[x-3][y]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //right
                if (x < width-4){
-               
+                  if (spot == this.board[x+1][y]){
+                     if (spot == this.board[x+2][y]){
+                        if (spot == this.board[x+3][y]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //above
                if (y < height-4){
-               
+                  if (spot == this.board[x][y+1]){
+                     if (spot == this.board[x][y+2]){
+                        if (spot == this.board[x][y+3]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //below
                if (y > 3){
-               
+                  if (spot == this.board[x][y-1]){
+                     if (spot == this.board[x][y-2]){
+                        if (spot == this.board[x][y-3]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //upRight
                if (y < height-4 && x < width-4){
-               
+                  if (spot == this.board[x+1][y+1]){
+                     if (spot == this.board[x+2][y+2]){
+                        if (spot == this.board[x+3][y+3]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //downRight
                if (y > 3 && x < width-4){
-               
+                  if (spot == this.board[x+1][y-1]){
+                     if (spot == this.board[x+2][y-2]){
+                        if (spot == this.board[x+3][y-3]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //upLeft
                if (y < height-4 && x > 3){
-               
+                  if (spot == this.board[x-1][y+1]){
+                     if (spot == this.board[x-2][y+2]){
+                        if (spot == this.board[x-3][y+3]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
                //downLeft
                if (y > 3 && x > 3){
-               
+                  if (spot == this.board[x-1][y-1]){
+                     if (spot == this.board[x-2][y-2]){
+                        if (spot == this.board[x-3][y-3]){
+                           return spot;
+                        }     
+                     }
+                  }
                }
-            }   
+               
+            }
          }
       }
          
@@ -147,40 +197,40 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       
    }
    
-   public void main(String[] args){
+   public static void main(String[] args){
       //"ui", std in, std out, print after every turn, check win vs. draw, etc
-      
-      while(this.gameStatus()==-1){//check if the game is over
+      Connect4 game = new Connect4(7, 6, "red");
+      while(game.gameStatus()==-1){//check if the game is over
       
          //print the board
-         this.print();
+         game.print();
          
          //red player
          StdOut.println("red to move");
          String move = StdIn.readLine();
-         this.drop(Integer.parseInt(move), 1);
+         game.drop(Integer.parseInt(move), 1);
          
          //check if the game is over
-         if(this.gameStatus()!=-1){
+         if(game.gameStatus()!=-1){
             break;
          }
          
          //print the board
-         this.print();
+         game.print();
          
          //yellow player
          StdOut.println("yellow to move");
          move = StdIn.readLine();
-         this.drop(Integer.parseInt(move), 2);
+         game.drop(Integer.parseInt(move), 2);
       }
       
-      this.print();
+      game.print();
       
       //print who won
-      if(this.gameStatus()==1){
+      if(game.gameStatus()==1){
          StdOut.println("RED WON!");
       }
-      else if(this.gameStatus()==2){
+      else if(game.gameStatus()==2){
          StdOut.println("YELLOW WON");
       }
       else{
