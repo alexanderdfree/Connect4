@@ -183,7 +183,7 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       //for loop for if the board is full
       int count = 0;
       for(int x = 0; x < this.width; x++){
-         if(this.board[x][this.height] != 0) count++;
+         if(this.board[x][this.height-1] != 0) count++;
       }
       if (count == this.width) return 0;
       return -1; //if 1. nobody has 4 in a row, 2. the board still has room
