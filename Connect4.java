@@ -32,13 +32,31 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
       }
    }
    
-   public char getSpot(int x, int y){
+   public char getSpotChar(int x, int y){
       if(board[x][y] == 0) return 'E';
       else if(board[x][y] == 1) return 'R';
       return 'Y';
    }
-   
-   public boolean drop(int x, int user){
+   public static int[] openMoves(){
+      int count = 0;
+      //int newInts[];
+      for(int x = 0; x < this.width; x++){
+         if(this.board[x][this.height-1] == 0){
+            count++;
+         }
+      }
+      int ints[] = new int[count];
+      count = 0;
+      for(int x = 0; x < this.width; x++){
+         if(this.board[x][this.height-1] == 0){
+            ints[count] = x;
+            count++;
+         }
+      }
+      return ints;
+      
+   }
+   public void drop(int x, int user){
       /* drops a token with the given player's color
             in the specified column, simulating gravity 
          Input: int x, int user (# id of player)
@@ -53,11 +71,11 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          //if the slot is empty
          if(this.board[x][y] == 0){
             this.board[x][y] = user; //place the token at (column (x), row (y))
-            return true; //return true to show method dropped sucessfully
+            return; //return blank to end
 
          }
       }
-      return false; //if not, do nothing - return false so we know it didn't work
+      return; //if not, do nothing
    }
    
    public void print(){
@@ -79,6 +97,18 @@ public class Connect4 extends Bot{ // things to fix: spacing, method contracts, 
          }
          StdOut.println();
       }
+   }
+   public int[][] getBoard(){
+      return this.board;
+   }
+   public int getWidth(){
+      return this.width;
+   }
+   public int getHeight(){
+      return this.height;
+   }
+   public int getSpot(int x, int y){
+      return board[x][y];
    }
    
    public int gameStatus(){
