@@ -12,11 +12,11 @@ public class Bot{
       if (c.gameStatus() == this.player){
          return 1;
       }
-      if (c.gameStatus() == this.player){
-         return -1;
+      if (c.gameStatus() == 0){
+         return 0;
       }
       if (c.gameStatus() != this.player){
-         return 0;
+         return -1;
       }
       int total = 0;
       for(int i = 0; i < c.openMoves().length; i++){
