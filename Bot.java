@@ -31,7 +31,7 @@ public class Bot{
       //returns best move as column integer
       //return 0;
       int bestMove = 0;
-      int bestTotal = 0;
+      double bestTotal = -Double.POSITIVE_INFINITY;
       for(int i = 0; i < c.openMoves().length; i++){
          c.drop(c.openMoves()[i], this.player);
          if(this.score(c) > bestTotal){
