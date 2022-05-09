@@ -20,112 +20,27 @@ public class Bot{
       }
       int total = 0;
       for(int i = 0; i < c.openMoves().length; i++){
-         c.drop(i, player);
+         c.drop(c.openMoves()[i], this.player);
+         //MAY NEED METHOD TO "UNDROP"
          total += this.score(c);
+         c.undrop(c.openMoves()[i], this.player);
       }
       return total;
    }
-   public static int minimax(){
+   public int minimax(Connect4 c){
       //returns best move as column integer
-      return 0;
-   }
-   
-   /*public static int winner(Connect4 c){
-      //check who wins given a hypothetical board
-      for(int x = 0; x < c.getWidth(); x++){
-         for(int y = 0; y < c.getHeight(); y++){
-            int spot = c.getSpot(x, y);
-            //int spotsToCheck = 1;
-            int connected = 1;
-            //find a method that will run through for each direction, maybe while loop for each one
-            //left
-            if(spot != 0){
-               if (x > 3){
-                  if (spot == c.board[x-1][y]){
-                     if (spot == this.board[x-2][y]){
-                        if (spot == this.board[x-3][y]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //right
-               if (x < width-4){
-                  if (spot == this.board[x+1][y]){
-                     if (spot == this.board[x+2][y]){
-                        if (spot == this.board[x+3][y]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //above
-               if (y < height-4){
-                  if (spot == this.board[x][y+1]){
-                     if (spot == this.board[x][y+2]){
-                        if (spot == this.board[x][y+3]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //below
-               if (y > 3){
-                  if (spot == this.board[x][y-1]){
-                     if (spot == this.board[x][y-2]){
-                        if (spot == this.board[x][y-3]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //upRight
-               if (y < height-4 && x < width-4){
-                  if (spot == this.board[x+1][y+1]){
-                     if (spot == this.board[x+2][y+2]){
-                        if (spot == this.board[x+3][y+3]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //downRight
-               if (y > 3 && x < width-4){
-                  if (spot == this.board[x+1][y-1]){
-                     if (spot == this.board[x+2][y-2]){
-                        if (spot == this.board[x+3][y-3]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //upLeft
-               if (y < height-4 && x > 3){
-                  if (spot == this.board[x-1][y+1]){
-                     if (spot == this.board[x-2][y+2]){
-                        if (spot == this.board[x-3][y+3]){
-                           return spot;
-                        }     
-                     }
-                  }
-               }
-               //downLeft
-               if (y > 3 && x > 3){
-                  if (spot == this.board[x-1][y-1]){
-                     if (spot == this.board[x-2][y-2]){
-                        if (spot == this.board[x-3][y-3]){
-                           return spot;
-                        }     
-                     }
-                  }
-               
-               }
-            }
+      //return 0;
+      int bestMove = 0;
+      int bestTotal = 0;
+      for(int i = 0; i < c.openMoves().length; i++){
+         c.drop(c.openMoves()[i], this.player);
+         if(this.score(c) > bestTotal){
+            bestMove = i;
+            bestTotal = this.score(c);
          }
-   }
-   }*/
-   public static void staticDrop(Connect4 c){
-      //drop function but static version
+         c.undrop(c.openMoves()[i], this.player);
+      }
+      return bestMove;
    }
    public static void main(String[] args){
       //main

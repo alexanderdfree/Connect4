@@ -77,7 +77,17 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       }
       return; //if not, do nothing
    }
-   
+   public void undrop(int x, int user){
+      for(int y = 0; y < this.height; y++){
+         //if the slot is filled
+         if(this.board[x][y] == user){
+            this.board[x][y] = 0; //remove the token at (column (x), row (y))
+            return; //return blank to end
+
+         }
+      }
+      return; //if not, do nothing
+   }
    public void print(){
       /* essentially a toString() method for the board 
             (0=empty=space, 1=red=R, 2=yellow=Y)
