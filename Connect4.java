@@ -303,7 +303,7 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       int colorInt = 2;
       if(color.equals("red") || color.equals("Red") || color.equals("R") || color.equals("r")) colorInt = 1;
       
-      Connect4 game = new Connect4(7, 6, colorInt);
+      Connect4 game = new Connect4(colorInt, 7, 6);
       
       StdOut.println("Would you like to play against a bot? Yes or no.");
       String botBool = StdIn.readLine();
