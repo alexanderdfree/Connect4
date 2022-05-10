@@ -10,19 +10,24 @@ public class Bot{
    }
    
    public int negamax(Connect4 c, int alpha, int beta, int color, int depth){
-      int depthMax = 12;
-      if (depth > depthMax) return heuristicValue(c, color, true);
+      int depthMax = 13;
+      //int scaleValue = 10000 * c.getWidth() * c.getHeight()/depth;
+      int scaleValue = 100000;
+      if (depth > depthMax) return heuristicValue(c, color, true, scaleValue);
+      
       //StdOut.println(depth);
       //recursive algorithm that calculates score for each move
       if (c.gameStatus() == color){
-         return (color*2-3);
+         //return heuristicValue(c, color, false, scaleValue);
+         return (color*2-3) * scaleValue;
       }
       if (c.gameStatus() == 0){
          return 0;
       }
       if (c.gameStatus() != color && c.gameStatus() >= 1){
-         return -(color*2-3);
+         return -(color*2-3) * scaleValue;
       }
+      
       int numToBeat = -Integer.MAX_VALUE;
       for(int i = 0; i < c.openMoves().length; i++){
          Connect4 d = c.clone();
@@ -38,22 +43,25 @@ public class Bot{
       }
       return numToBeat;
    }
-   public int heuristicValue(Connect4 c, int color, boolean depthReached){
-      if (c.gameStatus() == color){
-         return (color*2-3);
+   public int heuristicValue(Connect4 c, int color, boolean depthReached, int s){
+      /*if (c.gameStatus() == color){
+         return (color*2-3) * s;
       }
       if (c.gameStatus() == 0){
          return 0;
-      }
+      }*/
       if (c.gameStatus() != color && c.gameStatus() >= 1){
-         return -(color*2-3);
+         return -(color*2-3) * s;
       }
-      if (depthReached){
-         int botTotal = 7*4 + 7*4 + 4*4 + 4*4; //edit for different board size
-         int playerTotal = botTotal;
+      return c.countBoard(color)[0] * s + c.countBoard(color)[1]*100 + c.countBoard(color)[2];
+      //return c.countBoard(color)[0] * s + c.countBoard(color)[1]*100 + c.countBoard(color)[2] - (c.countBoard(color%2+1)[0] * s + c.countBoard(color%2+1)[1]*100 + c.countBoard(color%2+1)[2]);
+      //if (depthReached){
+         //int botTotal = 7*4 + 7*4 + 4*4 + 4*4; //edit for different board size
+         //int playerTotal = botTotal;
          //EVALUATE
-      }
-      return 0;
+         //return
+      //}
+      //return 0;
    }
    public int findMove(Connect4 c){
       //returns best move as column integer
@@ -77,16 +85,40 @@ public class Bot{
    }
    public static void main(String[] args){
       //main
-      Bot b = new Bot(1);
+      Bot b1 = new Bot(1);
+      Bot b2 = new Bot(2);
+      Connect4 game = new Connect4(1, 7, 6);
+      //Connect4 a = c.clone();
       
-      Connect4 c = new Connect4(1, 7, 6);
-      Connect4 a = c.clone();
-      StdOut.println(b.findMove(a));
+      /*while (c.gameStatus()<0){
+         c.redBotMove();
+         c.redYellowMove();
+      }*/
       /*c.drop(0, 1);
       c.drop(0, 1);
       c.drop(0, 1);
       c.print();
       StdOut.println("");
       a.print();*/
+      while(game.gameStatus()==-1){//check if the game is over
+            
+               //print the board
+               game.print();
+               
+               //red player
+               //StdOut.println(b1.findMove(c));
+               Connect4.botRedTurn(game, b1);
+               
+               //check if the game is over
+               if(game.gameStatus()!=-1) break;
+               
+               //print the board
+               game.print();
+               
+               //yellow player
+               //StdOut.println(b1.findMove(c));
+               Connect4.botYellowTurn(game, b2);
+            
+         }
    }
 }

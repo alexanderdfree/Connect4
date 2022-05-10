@@ -255,7 +255,265 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       if (count == this.width) return 0;
       return -1; //if 1. nobody has 4 in a row, 2. the board still has room
    }
-   
+   public int[] countBoard(int player){
+      int[] streaks = new int[3];
+      for(int x = 0; x < this.width; x++){
+         for(int y = 0; y < this.height; y++){
+            int spot = this.board[x][y];
+            //int spotsToCheck = 1;
+            //int connected = 1;
+            //find a method that will run through for each direction, maybe while loop for each one
+            //left
+            if(spot != 0){
+               if (x > 3){
+                  if (spot == this.board[x-1][y]){
+                     if (spot == this.board[x-2][y]){
+                        if (spot == this.board[x-3][y]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //right
+               if (x < width-4){
+                  if (spot == this.board[x+1][y]){
+                     if (spot == this.board[x+2][y]){
+                        if (spot == this.board[x+3][y]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //above
+               if (y < height-4){
+                  if (spot == this.board[x][y+1]){
+                     if (spot == this.board[x][y+2]){
+                        if (spot == this.board[x][y+3]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //below
+               if (y > 3){
+                  if (spot == this.board[x][y-1]){
+                     if (spot == this.board[x][y-2]){
+                        if (spot == this.board[x][y-3]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //upRight
+               if (y < height-4 && x < width-4){
+                  if (spot == this.board[x+1][y+1]){
+                     if (spot == this.board[x+2][y+2]){
+                        if (spot == this.board[x+3][y+3]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //downRight
+               if (y > 3 && x < width-4){
+                  if (spot == this.board[x+1][y-1]){
+                     if (spot == this.board[x+2][y-2]){
+                        if (spot == this.board[x+3][y-3]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //upLeft
+               if (y < height-4 && x > 3){
+                  if (spot == this.board[x-1][y+1]){
+                     if (spot == this.board[x-2][y+2]){
+                        if (spot == this.board[x-3][y+3]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               //downLeft
+               if (y > 3 && x > 3){
+                  if (spot == this.board[x-1][y-1]){
+                     if (spot == this.board[x-2][y-2]){
+                        if (spot == this.board[x-3][y-3]){
+                           streaks[0]++;
+                        }     
+                     }
+                  }
+               }
+               
+               
+               //3 in a row
+               if(spot != 0){
+               if (x > 2){
+                  if (spot == this.board[x-1][y]){
+                     if (spot == this.board[x-2][y]){
+
+                        streaks[1]++;
+                          
+                     }
+                  }
+               }
+               //right
+               if (x < width-3){
+                  if (spot == this.board[x+1][y]){
+                     if (spot == this.board[x+2][y]){
+                        //if (spot == this.board[x+3][y]){
+                        streaks[1]++;
+                             
+                     }
+                  }
+               }
+               //above
+               if (y < height-3){
+                  if (spot == this.board[x][y+1]){
+                     if (spot == this.board[x][y+2]){
+                        //if (spot == this.board[x][y+3]){
+                           streaks[1]++;
+                           
+                     }
+                  }
+               }
+               //below
+               if (y > 2){
+                  if (spot == this.board[x][y-1]){
+                     if (spot == this.board[x][y-2]){
+                        //if (spot == this.board[x][y-3]){
+                           streaks[1]++;
+                             
+                     }
+                  }
+               }
+               //upRight
+               if (y < height-3 && x < width-3){
+                  if (spot == this.board[x+1][y+1]){
+                     if (spot == this.board[x+2][y+2]){
+                        //if (spot == this.board[x+3][y+3]){
+                           streaks[1]++;
+                            
+                     }
+                  }
+               }
+               //downRight
+               if (y > 2 && x < width-3){
+                  if (spot == this.board[x+1][y-1]){
+                     if (spot == this.board[x+2][y-2]){
+                        //if (spot == this.board[x+3][y-3]){
+                           streaks[1]++;
+                             
+                     }
+                  }
+               }
+               //upLeft
+               if (y < height-3 && x > 2){
+                  if (spot == this.board[x-1][y+1]){
+                     if (spot == this.board[x-2][y+2]){
+                        //if (spot == this.board[x-3][y+3]){
+                           streaks[1]++;
+                            
+                     }
+                  }
+               }
+               //downLeft
+               if (y > 2 && x > 2){
+                  if (spot == this.board[x-1][y-1]){
+                     if (spot == this.board[x-2][y-2]){
+                        //if (spot == this.board[x-3][y-3]){
+                           streaks[1]++;
+                             
+                     }
+                  }
+               }
+               
+               //2 in a row
+               
+               if (x > 1){
+                  if (spot == this.board[x-1][y]){
+                     //if (spot == this.board[x-2][y]){
+
+                        streaks[2]++;
+                          
+                     
+                  }
+               }
+               //right
+               if (x < width-2){
+                  if (spot == this.board[x+1][y]){
+                     //if (spot == this.board[x+2][y]){
+                        //if (spot == this.board[x+3][y]){
+                        streaks[2]++;
+                             
+                     
+                  }
+               }
+               //above
+               if (y < height-2){
+                  if (spot == this.board[x][y+1]){
+                     //if (spot == this.board[x][y+2]){
+                        //if (spot == this.board[x][y+3]){
+                           streaks[2]++;
+                            
+                     
+                  }
+               }
+               //below
+               if (y > 1){
+                  if (spot == this.board[x][y-1]){
+                     //if (spot == this.board[x][y-2]){
+                        //if (spot == this.board[x][y-3]){
+                           streaks[2]++;
+                             
+                     
+                  }
+               }
+               //upRight
+               if (y < height-2 && x < width-2){
+                  if (spot == this.board[x+1][y+1]){
+                     //if (spot == this.board[x+2][y+2]){
+                        //if (spot == this.board[x+3][y+3]){
+                           streaks[2]++;
+                            
+                     
+                  }
+               }
+               //downRight
+               if (y > 1 && x < width-2){
+                  if (spot == this.board[x+1][y-1]){
+                     //if (spot == this.board[x+2][y-2]){
+                        //if (spot == this.board[x+3][y-3]){
+                           streaks[2]++;
+                             
+                     
+                  }
+               }
+               //upLeft
+               if (y < height-2 && x > 1){
+                  if (spot == this.board[x-1][y+1]){
+                     //if (spot == this.board[x-2][y+2]){
+                        //if (spot == this.board[x-3][y+3]){
+                           streaks[2]++;
+                            
+                     
+                  }
+               }
+               //downLeft
+               if (y > 1 && x > 1){
+                  if (spot == this.board[x-1][y-1]){
+                     //if (spot == this.board[x-2][y-2]){
+                        //if (spot == this.board[x-3][y-3]){
+                           streaks[2]++;
+                             
+                     
+                  }
+               
+               }
+            
+         }
+         
+   }}}return streaks;}
    public boolean columnIsFull(int column){
       
       //if the first row of the column is full, return true
