@@ -9,41 +9,29 @@ public class Bot{
       this.player = p;
    }
    
-   public int minimax(Connect4 c, int depth, int alpha, int beta, boolean isMax){
+   public int negamax(Connect4 c, int alpha, int beta, int color){
       //recursive algorithm that calculates score for each move
-      if (c.gameStatus() == this.player){
-         return 1;
+      if (c.gameStatus() == color){
+         return (color*2-3);
       }
       if (c.gameStatus() == 0){
          return 0;
       }
-      if (c.gameStatus() != this.player && c.gameStatus() >= 1){
-         return -1;
+      if (c.gameStatus() != color && c.gameStatus() >= 1){
+         return -(color*2-3);
       }
-      int numToBeat = 0;
-      if(isMax){
-         numToBeat = -Integer.MAX_VALUE;
-         for(int i = 0; i < c.openMoves().length; i++){
-            c.drop(c.openMoves()[i], this.player);
-            int current = this.minimax(c, depth+1, alpha, beta, false);
-            if (current > numToBeat) numToBeat = current;
-            if (numToBeat > alpha) alpha = numToBeat;
-            //total += this.minimax(c);
-            c.undrop(c.openMoves()[i]);
-            if (beta<=alpha) break;
-         }
-      }
-      else{
-         numToBeat = Integer.MIN_VALUE;;
-         for(int i = 0; i < c.openMoves().length; i++){
-            c.drop(c.openMoves()[i], this.player);
-            //MAY NEED METHOD TO "UNDROP"
-            int current = this.minimax(c, depth+1, alpha, beta, true);
-            if (current < numToBeat) numToBeat = current;
-            if (numToBeat < beta) beta = numToBeat;
-            c.undrop(c.openMoves()[i]);
-            if (beta<=alpha) break;
-         }
+      int numToBeat = -Integer.MAX_VALUE;
+      for(int i = 0; i < c.openMoves().length; i++){
+         Connect4 dropped = c.clone();
+         dropped.drop(c.openMoves()[i], color); //change the board for this iteration
+         //int current = -this.negamax(c, depth-1, -alpha, -beta); //current value of iteration
+         numToBeat = Math.max(numToBeat, -this.negamax(dropped, -alpha, -beta, color%2+1));
+         alpha = Math.max(alpha, numToBeat);
+         //if (current > numToBeat) numToBeat = current;
+         //if (numToBeat > alpha) alpha = numToBeat;
+         //total += this.minimax(c);
+         //c.undrop(c.openMoves()[i]);
+         if (alpha >= beta) break;
       }
       return numToBeat;
    }
@@ -53,13 +41,17 @@ public class Bot{
       int bestMove = 0;
       double bestTotal = -Double.POSITIVE_INFINITY;
       for(int i = 0; i < c.openMoves().length; i++){
-         c.drop(c.openMoves()[i], this.player);
-         int score = this.minimax(c, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+         //c.drop(c.openMoves()[i], this.player);
+         //int score = this.minimax(c, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+         Connect4 d = c.clone();
+         d.drop(c.openMoves()[i], this.player);
+         //int id = 1;
+         int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player);// FIX IT ITS ALWAYS RED RIGHT NOW
          if(score > bestTotal){
             bestMove = i;
             bestTotal = score;
          }
-         c.undrop(c.openMoves()[i]);
+         //c.undrop(c.openMoves()[i]);
       }
       return bestMove;
    }

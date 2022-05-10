@@ -71,12 +71,20 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       }
       return; //if not, do nothing
    }
+   public Connect4 clone(){
+      Connect4 c2 = new Connect4(this.width, this.height, this.player);
+      c2.board = this.board;
+      return c2;
+   } 
    public void undrop(int x){
       for(int y = this.height-1; y > 0; y--){
          //if the slot is filled
-         this.board[x][y] = 0; //remove the token at (column (x), row (y))
-         return; //return blank to end
+         if(this.board[x][y] != 0){
+            this.board[x][y] = 0; //remove the token at (column (x), row (y))
+            return; //return blank to end
+         }
       }
+      
       return; //if not, do nothing
    }
    public void print(){
