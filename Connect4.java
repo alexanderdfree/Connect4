@@ -7,7 +7,7 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
    private int height; //board height
    private int board[][]; //board 2D array -> board[width][height]
    
-   public Connect4(int w, int h, int p){
+   public Connect4(int p, int w, int h){
       /*Constructor
          Input: int w (width), int h (height), String p (player)
          Output: none
@@ -83,9 +83,26 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       }
       return; //if not, do nothing
    }
+   public Connect4 dropNew(int x, int user){
+      for(int y = 0; y < this.height; y++){
+         //if the slot is empty
+         if(this.board[x][y] == 0){
+            this.board[x][y] = user; //place the token at (column (x), row (y))
+            return this.clone(); //return blank to end
+
+         }
+      }
+      return this; //if not, do nothing
+   }
    public Connect4 clone(){
       //clone to avoid side effects in bot
-      return new Connect4(this.width, this.height, this.player, this.board);
+      Connect4 a = new Connect4(this.player, this.width, this.height);
+      for(int x = 0; x < this.width; x++){
+         for(int y = 0; y < this.height; y++){
+            a.board[x][y] = this.board[x][y]; //0 represents empty, 1 represents red, 2 represents yellow
+         }
+      }
+      return a;
    } 
    public void undrop(int x){
       for(int y = this.height-1; y > 0; y--){
@@ -142,7 +159,7 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
          for(int y = 0; y < this.height; y++){
             int spot = this.board[x][y];
             //int spotsToCheck = 1;
-            int connected = 1;
+            //int connected = 1;
             //find a method that will run through for each direction, maybe while loop for each one
             //left
             if(spot != 0){
