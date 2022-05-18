@@ -2,8 +2,6 @@ public class Bot{
    
    //instance variables
    private int player;
-   private double min;
-   private double max;
    
    //constructor
    public Bot(int p){
@@ -17,19 +15,19 @@ public class Bot{
 
       //check if player can win in next move
       for(int i = 0; i < c.getWidth(); i++){ //for each column
-         //clone board to prevent side effects
+         
          
          if(c.moveArray()[i]){ //if the move is valid
+            //clone board to prevent side effects
             Connect4 e = c.clone();
-            e.drop(i, color); //drop the token
             
+            e.drop(i, color); //drop the token
             //if the next move is a win, return the amount of moves it has taken (to get here)
             if (e.gameStatus() == color) return (e.getWidth()*e.getHeight() + 1 - e.moveTotal())/2;
             
+            
          }
       }
-      
-      //if (depth > 10) return 0;
       
       //given that the next move is not a win
       //this is the longest possible path to victory 

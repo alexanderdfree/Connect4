@@ -61,7 +61,7 @@ public class Connect4{
    }
    
    //create connect4 with specific board
-   public Connect4(int w, int h, int p, int[][] b){
+   public Connect4(int w, int h, int p, int m, int[][] b){
       /*Constructor
          Input: int w (width), int h (height), String p (player)
          Output: none
@@ -72,7 +72,7 @@ public class Connect4{
       this.width = w;
       this.height = h;
       this.board = b;
-      this.moves = 0;
+      this.moves = m;
    }
    
    public char getSpotChar(int x, int y){
@@ -152,7 +152,7 @@ public class Connect4{
       //clone to avoid side effects in bot class
       
       //create new Connect4 object
-      Connect4 a = new Connect4(this.player, this.width, this.height, this.moves);
+      Connect4 a = new Connect4(this.player, this.width, this.height);
       
       for(int x = 0; x < this.width; x++){ //for every column
          for(int y = 0; y < this.height; y++){ //and row
@@ -161,6 +161,7 @@ public class Connect4{
          }
       }
       //return
+      a.moves = this.moves;
       return a;
    } 
    public void undrop(int x){
