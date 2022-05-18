@@ -31,6 +31,8 @@ public class Bot{
          }
       }
       
+      //if (depth > 10) return 0;
+      
       //given that the next move is not a win
       //this is the longest possible path to victory 
       //(in the amount of moves on the current player's side):
@@ -158,7 +160,7 @@ public class Bot{
       //create Connect 4 game
       Connect4 game = new Connect4(1, 7, 6);
       
-      while (game.gameStatus() == -1) { //check if the game is over
+      while (game.gameStatus() == -1){ //check if the game is over
             
                //print the board
                game.print();
