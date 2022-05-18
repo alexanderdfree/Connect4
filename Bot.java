@@ -10,7 +10,7 @@ public class Bot{
       this.player = p;
    }
    
-   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){ // BETA NEVER CHANGES
+   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){
       
       //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
@@ -37,23 +37,24 @@ public class Bot{
       double upper = (c.getWidth()*c.getHeight() - 1 - c.moveTotal())/2;
       
       //alpha/beta pruning (elaborate)
-      if (beta > upper) {
+      if (beta > upper){
          beta = upper;
          if (alpha >= beta) return beta;
       }
+      
+      //store best move order
+      int[] order = Bot.moveOrder(c);
       
       //recursive algorithm that calculates score for each move
       for(int i = 0; i < c.getWidth(); i++){ //for each column
          
          //start in the middle column and work outwards for efficiency's sake
-         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2); //CHANGE UP THIS LINE
-         
-         if(c.moveArray()[j]){ //if the move is valid
+         if(c.moveArray()[i]){ //if the move is valid
             
             //clone board to prevent side effects
             Connect4 d = c.clone();
             
-            d.drop(j, color); //drop the token in simulated board
+            d.drop(order[i], color); //drop the token in simulated board
             
             upper = -this.negamax(d, -alpha, -beta, color%2+1, depth+1);
 
@@ -68,7 +69,8 @@ public class Bot{
    public int findMove(Connect4 c){
       //this method returns best move as column integer
       
-      int bestMove = -1; //placeholder
+      int bestMove = -1; //placeholder for best move
+      int[] order = Bot.moveOrder(c); //storing optimal move order
       
       //the number to beat (lowest possible)
       double bestTotal = -Double.POSITIVE_INFINITY;
@@ -76,14 +78,11 @@ public class Bot{
       //for every column
       for(int i = 0; i < c.getWidth(); i++){
          
-         //start in the middle column and work outwards for efficiency's sake
-         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2); //REMEMBER TO EDIT BEFORE TURN IN
-         
-         if(c.moveArray()[j]){
+         if(c.moveArray()[i]){ //if the move is valid
          
             Connect4 d = c.clone(); //clone connect4 to prevent side effects
             
-            d.drop(j, this.player); //drop the token in simulated board
+            d.drop(order[i], this.player); //drop the token in simulated board
             
             //the score is the negative... (definition of negamax)
             double score = -this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
@@ -92,7 +91,7 @@ public class Bot{
             
             if(score > bestTotal){ //if the score is better than the current best
                //change the current best move to be current column
-               bestMove = j;
+               bestMove = i;
                
                //change the current best score to be current score
                bestTotal = score;
@@ -112,6 +111,41 @@ public class Bot{
       //return the best possible move
       return bestMove;
    }
+   
+   public static int[] moveOrder(Connect4 c){
+      //start in the middle column and work outwards for efficiency's sake
+      
+      //access width
+      int w = c.getWidth();
+      //create integer array
+      int[] order = new int[w];
+      
+      //create index variable and variable to store
+      //difference from center column
+      int index = 1;
+      int difference = 1;
+      
+      //set middle column to be always first
+      order[0] = w/2;
+      
+      //while the column will still be in bounds
+      while (w/2 - difference >= 0 || w/2 + difference < w){
+         //start at width/2 and move outwards incrementally in steps of 1
+         if(w/2 - difference >= 0){
+            order[index] = w/2 - difference;
+            index++;
+         }
+         if(w/2 + difference < w){
+            order[index] = w/2 + difference;
+            index++;
+            
+         }
+         difference++;
+      }
+      //return
+      return order;
+   }
+   
    public static void main(String[] args){
       //main method to test bots against each other
       //if all goes to plan, the bot should be an even match for itself
