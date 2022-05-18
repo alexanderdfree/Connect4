@@ -1,203 +1,135 @@
 public class Bot{
-   //bot stuff
+   
+   //instance variables
    private int player;
-   //private Connect4 connect;
    private double min;
    private double max;
    
+   //constructor
    public Bot(int p){
       this.player = p;
    }
    
-   /*public int negamax1(Connect4 c, int alpha, int beta, int color, int depth){ // BETA NEVER CHANGES
-      int depthMax = 12;
-      int scaleValue = 10000 * c.getWidth() * c.getHeight()/(depth+1);
-      //int scaleValue = 100000;
-      if (depth > depthMax) return heuristicValue(c, color, true, scaleValue);
+   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){ // BETA NEVER CHANGES
       
-      //StdOut.println(depth);
-      //recursive algorithm that calculates score for each move
-      if (c.gameStatus() == color){
-         //return heuristicValue(c, color, false, scaleValue);
-         return (color*2-3) * scaleValue;
-      }
-      if (c.gameStatus() == 0){
-         return 0;
-      }
-      if (c.gameStatus() != color && c.gameStatus() >= 1){
-         return -(color*2-3) * scaleValue;
-      }
-      
-      int numToBeat = -Integer.MAX_VALUE;
-      //for(int i = 0; i < c.openMoves().length; i++){
-      for(int i = 0; i < c.getWidth(); i++){
-         if(c.moveArray()[i]){
-         Connect4 d = c.clone();
-         //d.drop(d.openMoves()[i], color%2+1); //change the board for this iteration
-         //d.drop(d.openMoves()[i], color);
-         d.drop(i, color); //change the board for this iteration
-         //int current = -this.negamax(c, depth-1, -alpha, -beta); //current value of iteration
-         numToBeat = Math.max(numToBeat, -this.negamax(d, -alpha, -beta, color%2+1, depth+1));
-         alpha = Math.max(alpha, numToBeat);
-         //if (current > numToBeat) numToBeat = current;
-         //if (numToBeat > alpha) alpha = numToBeat;
-         //total += this.minimax(c);
-         //d.undrop(c.openMoves()[i]);
-         if (alpha >= beta) return numToBeat;
-         }
-      }
-      return numToBeat;
-   }*/
-   public double negamax2(Connect4 c, double alpha, double beta, int color, int depth){ // BETA NEVER CHANGES
+      //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
-      //int depthMax = 12;
-      //int scaleValue = 10000 * c.getWidth() * c.getHeight()/(depth+1);
-      //int scaleValue = 100000;
-      //if (depth > depthMax) return heuristicValue(c, color, true, scaleValue);
-      
-      //recursive algorithm that calculates score for each move
-      for(int i = 0; i < c.getWidth(); i++){
-         Connect4 e = c.clone();
-         if(c.moveArray()[i]){
-            e.drop(i, color);
+
+      //check if player can win in next move
+      for(int i = 0; i < c.getWidth(); i++){ //for each column
+         
+         if(c.moveArray()[i]){ //if the move is valid
+            
+            //clone board to prevent side effects
+            Connect4 e = c.clone();
+            
+            e.drop(i, color); //drop the token
+            
+            //if the next move is a win, return the amount of moves it has taken (to get here)
             if (e.gameStatus() == color) return (e.getWidth()*e.getHeight() + 1 - e.moveTotal())/2;
-            //StdOut.println(e.moveTotal());
+            
          }
       }
       
+      //given that the next move is not a win
+      //this is the longest possible path to victory 
+      //(in the amount of moves on the current player's side):
       double upper = (c.getWidth()*c.getHeight() - 1 - c.moveTotal())/2;
-      //int numToBeat = -Integer.MAX_VALUE;
       
+      //alpha/beta pruning (elaborate)
       if (beta > upper) {
          beta = upper;
          if (alpha >= beta) return beta;
       }
+      
+      //recursive algorithm that calculates score for each move
+      for(int i = 0; i < c.getWidth(); i++){ //for each column
+         
+         //start in the middle column and work outwards for efficiency's sake
+         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2); //CHANGE UP THIS LINE
+         
+         if(c.moveArray()[j]){ //if the move is valid
             
-      for(int i = 0; i < c.getWidth(); i++){
-         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2);
-         if(c.moveArray()[j]){
-            
+            //clone board to prevent side effects
             Connect4 d = c.clone();
-            d.drop(j, color); //change the board for this iteration
             
-            upper = -this.negamax2(d, -alpha, -beta, color%2+1, depth+1);
-            //alpha = Math.max(alpha, numToBeat);
+            d.drop(j, color); //drop the token in simulated board
+            
+            upper = -this.negamax(d, -alpha, -beta, color%2+1, depth+1);
 
+            //alpha-beta pruning
             if (upper >= beta) return upper;
             if (upper > alpha) alpha = upper;
          }
       }
       return alpha;
    }
-   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){
-      int depthMax = 5;
-      
-      
-      //StdOut.println(depth);
-
-      if (c.gameStatus() == color) return (color%2+1)*10000;//Double.POSITIVE_INFINITY;
-      if (c.gameStatus() == 0) return 0;
-      if (c.gameStatus() != color && c.gameStatus() >= 1) return -(color%2+1)*10000;//Double.NEGATIVE_INFINITY;
-      if (depth > depthMax) return eval(c, color);
-      
-      double numToBeat = Double.NEGATIVE_INFINITY;
-      //for(int i = 0; i < c.openMoves().length; i++){
-      for(int i = 0; i < c.getWidth(); i++){
-         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2);
-         if(c.moveArray()[j]){
-            Connect4 d = c.clone();
-            //d.drop(d.openMoves()[i], color%2+1); //change the board for this iteration
-            //d.drop(d.openMoves()[i], color);
-            d.drop(j, color); //change the board for this iteration
-            //int current = -this.negamax(c, depth-1, -alpha, -beta); //current value of iteration
-            numToBeat = Math.max(numToBeat, -this.negamax(d, -alpha, -beta, color%2+1, depth+1));
-            
-         }
-      }
-      return numToBeat;
-
-   }
-   public int eval(Connect4 c, int color){
-      return (c.countBoard(color)[1]*4 + c.countBoard(color)[2]) - (c.countBoard(color%2+1)[1]*4 + c.countBoard(color%2+1)[2]);
-   }
-   public int heuristicValue(Connect4 c, int color, boolean depthReached, int s){
-      /*if (c.gameStatus() == color){
-         return (color*2-3) * s;
-      }
-      if (c.gameStatus() == 0){
-         return 0;
-      }*/
-      if (c.gameStatus() != color && c.gameStatus() >= 1){
-         return -(color*2-3) * s;
-      }
-      return c.countBoard(color)[0] * s + c.countBoard(color)[1]*100 + c.countBoard(color)[2];
-      //return c.countBoard(color)[0] * s + c.countBoard(color)[1]*100 + c.countBoard(color)[2] - (c.countBoard(color%2+1)[0] * s + c.countBoard(color%2+1)[1]*100 + c.countBoard(color%2+1)[2]);
-      //if (depthReached){
-         //int botTotal = 7*4 + 7*4 + 4*4 + 4*4; //edit for different board size
-         //int playerTotal = botTotal;
-         //EVALUATE
-         //return
-      //}
-      //return 0;
-   }
+   
    public int findMove(Connect4 c){
-      //returns best move as column integer
-      //return 0;
-      int bestMove = -1;
+      //this method returns best move as column integer
+      
+      int bestMove = -1; //placeholder
+      
+      //the number to beat (lowest possible)
       double bestTotal = -Double.POSITIVE_INFINITY;
+      
+      //for every column
       for(int i = 0; i < c.getWidth(); i++){
-         //c.drop(c.openMoves()[i], this.player);
-         //int score = this.minimax(c, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+         
+         //start in the middle column and work outwards for efficiency's sake
          int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2); //REMEMBER TO EDIT BEFORE TURN IN
+         
          if(c.moveArray()[j]){
-            Connect4 d = c.clone();
-            //d.drop(d.openMoves()[i], this.player);
-            d.drop(j, this.player);
-            //d.drop(i, this.player%2+1);
-            //d.drop(d.openMoves()[i], this.player%2+1);
-            //int id = 1;
-            //int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player, 0);
-            //int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player%2+1, 0);
-            double score = -this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
-            //double score = this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
-            if(score > bestTotal){
+         
+            Connect4 d = c.clone(); //clone connect4 to prevent side effects
+            
+            d.drop(j, this.player); //drop the token in simulated board
+            
+            //the score is the negative... (definition of negamax)
+            double score = -this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
+            //double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
+            
+            
+            if(score > bestTotal){ //if the score is better than the current best
+               //change the current best move to be current column
                bestMove = j;
+               
+               //change the current best score to be current score
                bestTotal = score;
             }
          }
-         //d.undrop(c.openMoves()[i]);
       }
+      
+      //prevents error when forced into losing
+      //(basically just admits defeat)
       if (bestMove == -1){
          for(int i = 0; i < c.getWidth()-1; i++){
+            //for each column, make any valid move
             if (c.moveArray()[i]) return i;
          }
       }
+      
+      //return the best possible move
       return bestMove;
    }
    public static void main(String[] args){
-      //main
+      //main method to test bots against each other
+      //if all goes to plan, the bot should be an even match for itself
+      //and the board should fill up
+      
+      //create bot objects
       Bot b1 = new Bot(1);
       Bot b2 = new Bot(2);
-      Connect4 game = new Connect4(1, 7, 6);
-      //Connect4 a = c.clone();
       
-      /*while (c.gameStatus()<0){
-         c.redBotMove();
-         c.redYellowMove();
-      }*/
-      /*c.drop(0, 1);
-      c.drop(0, 1);
-      c.drop(0, 1);
-      c.print();
-      StdOut.println("");
-      a.print();*/
-      while(game.gameStatus()==-1){//check if the game is over
+      //create Connect 4 game
+      Connect4 game = new Connect4(1, 7, 6);
+      
+      while (game.gameStatus() == -1) { //check if the game is over
             
                //print the board
                game.print();
                
-               //red player
-               //StdOut.println(b1.findMove(c));
+               //red bot
                Connect4.botRedTurn(game, b1);
                
                //check if the game is over
@@ -206,8 +138,7 @@ public class Bot{
                //print the board
                game.print();
                
-               //yellow player
-               //StdOut.println(b1.findMove(c));
+               //yellow bot
                Connect4.botYellowTurn(game, b2);
             
          }

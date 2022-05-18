@@ -1,5 +1,4 @@
-public class Connect4{ // things to fix: spacing, method contracts, making sure we standardize thinking of top vs. bottom
-   //DECIDE WHETHER OR NOT WE DO 2 CLASSES, WHETHER TO EXTEND BOT?
+public class Connect4{
    
    //instance variables
    private int player; //1 for red, 2 for yellow
@@ -16,13 +15,20 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       */
       
       this.player = p;
-      this.width = w; //ignore user instructions for now
+      this.width = w;
       this.height = h;
       
+      //create 2D int array
       this.board = new int[w][h];
+      
+      //for every column 
       for(int x = 0; x < this.width; x++){
+         //and every row in that column
          for(int y = 0; y < this.height; y++){
+         
+            //set each spot to be empty
             this.board[x][y] = 0; //0 represents empty, 1 represents red, 2 represents yellow
+            
          }
       }
       this.moves = 0;
@@ -35,16 +41,23 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       */
       
       this.player = p;
-      this.width = w; //ignore user instructions for now
+      this.width = w;
       this.height = h;
       
+      //create 2D int array
       this.board = new int[w][h];
+      
+      //for every column 
       for(int x = 0; x < this.width; x++){
+         //and every row in that column
          for(int y = 0; y < this.height; y++){
+         
+            //set each spot to be empty
             this.board[x][y] = 0; //0 represents empty, 1 represents red, 2 represents yellow
+            
          }
       }
-      this.moves = m;
+      this.moves = 0;   
    }
    public Connect4(int w, int h, int p, int[][] b){
       /*Constructor
