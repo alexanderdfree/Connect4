@@ -147,7 +147,6 @@ public class Connect4{
       return; //if not, do nothing
       
    }
-   
    public Connect4 clone(){
       //clone to avoid side effects in bot class
       

@@ -49,7 +49,7 @@ public class Bot{
       for(int i = 0; i < c.getWidth(); i++){ //for each column
          
          //start in the middle column and work outwards for efficiency's sake
-         if(c.moveArray()[i]){ //if the move is valid
+         if(c.moveArray()[order[i]]){ //if the move is valid
             
             //clone board to prevent side effects
             Connect4 d = c.clone();
@@ -78,7 +78,7 @@ public class Bot{
       //for every column
       for(int i = 0; i < c.getWidth(); i++){
          
-         if(c.moveArray()[i]){ //if the move is valid
+         if(c.moveArray()[order[i]]){ //if the move is valid
          
             Connect4 d = c.clone(); //clone connect4 to prevent side effects
             
