@@ -6,6 +6,7 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
    private int width; //board width
    private int height; //board height
    private int board[][]; //board 2D array -> board[width][height]
+   private int moves;
    
    public Connect4(int p, int w, int h){
       /*Constructor
@@ -24,6 +25,26 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
             this.board[x][y] = 0; //0 represents empty, 1 represents red, 2 represents yellow
          }
       }
+      this.moves = 0;
+   }
+   public Connect4(int p, int w, int h, int m){
+      /*Constructor
+         Input: int w (width), int h (height), String p (player)
+         Output: none
+         Side Effects: create new Connect4, assign instance variables
+      */
+      
+      this.player = p;
+      this.width = w; //ignore user instructions for now
+      this.height = h;
+      
+      this.board = new int[w][h];
+      for(int x = 0; x < this.width; x++){
+         for(int y = 0; y < this.height; y++){
+            this.board[x][y] = 0; //0 represents empty, 1 represents red, 2 represents yellow
+         }
+      }
+      this.moves = m;
    }
    public Connect4(int w, int h, int p, int[][] b){
       /*Constructor
@@ -62,6 +83,18 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       return ints;
       
    }
+   public boolean[] moveArray(){
+      boolean[] bools = new boolean[width];
+      for(int x = 0; x < this.width; x++){
+         if(this.board[x][this.height-1] == 0){
+            bools[x] = true;;
+         }
+         else bools[x] = false;
+      }
+
+      return bools;
+      
+   }
    public void drop(int x, int user){
       /* drops a token with the given player's color
             in the specified column, simulating gravity 
@@ -77,11 +110,13 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
          //if the slot is empty
          if(this.board[x][y] == 0){
             this.board[x][y] = user; //place the token at (column (x), row (y))
+            this.moves++;
             return; //return blank to end
 
          }
       }
       return; //if not, do nothing
+      
    }
    public Connect4 dropNew(int x, int user){
       for(int y = 0; y < this.height; y++){
@@ -96,7 +131,7 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
    }
    public Connect4 clone(){
       //clone to avoid side effects in bot
-      Connect4 a = new Connect4(this.player, this.width, this.height);
+      Connect4 a = new Connect4(this.player, this.width, this.height, this.moves);
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
             a.board[x][y] = this.board[x][y]; //0 represents empty, 1 represents red, 2 represents yellow
@@ -114,6 +149,9 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
       }
       
       return; //if not, do nothing
+   }
+   public int moveTotal(){
+      return this.moves;
    }
    public void print(){
       /* essentially a toString() method for the board 
