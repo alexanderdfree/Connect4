@@ -17,12 +17,10 @@ public class Bot{
 
       //check if player can win in next move
       for(int i = 0; i < c.getWidth(); i++){ //for each column
+         //clone board to prevent side effects
          
          if(c.moveArray()[i]){ //if the move is valid
-            
-            //clone board to prevent side effects
             Connect4 e = c.clone();
-            
             e.drop(i, color); //drop the token
             
             //if the next move is a win, return the amount of moves it has taken (to get here)
@@ -75,7 +73,7 @@ public class Bot{
       int[] order = Bot.moveOrder(c); //storing optimal move order
       
       //the number to beat (lowest possible)
-      double bestTotal = -Double.POSITIVE_INFINITY;
+      double bestTotal = Double.NEGATIVE_INFINITY;
       
       //for every column
       for(int i = 0; i < c.getWidth(); i++){

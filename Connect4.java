@@ -43,7 +43,7 @@ public class Connect4{
       this.player = p;
       this.width = w;
       this.height = h;
-      
+      this.moves = m;
       //create 2D int array
       this.board = new int[w][h];
       
@@ -57,7 +57,7 @@ public class Connect4{
             
          }
       }
-      this.moves = 0;   
+        
    }
    
    //create connect4 with specific board
@@ -72,6 +72,7 @@ public class Connect4{
       this.width = w;
       this.height = h;
       this.board = b;
+      this.moves = 0;
    }
    
    public char getSpotChar(int x, int y){
