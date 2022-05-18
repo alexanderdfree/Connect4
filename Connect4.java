@@ -265,6 +265,8 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
             //find a method that will run through for each direction, maybe while loop for each one
             //left
             if(spot != 0){
+            
+               //left 4
                if (x > 3){
                   if (spot == this.board[x-1][y]){
                      if (spot == this.board[x-2][y]){
@@ -274,7 +276,28 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //right
+               //left 3
+               else if (x > 2){
+                  if (spot == this.board[x-1][y]){
+                     if (spot == this.board[x-2][y]){
+
+                        streaks[1]++;
+                          
+                     }
+                  }
+               }
+               //left 2
+               else if (x > 1){
+                  if (spot == this.board[x-1][y]){
+                     //if (spot == this.board[x-2][y]){
+
+                        streaks[2]++;
+                          
+                     
+                  }
+               }
+               
+               //right 4
                if (x < width-4){
                   if (spot == this.board[x+1][y]){
                      if (spot == this.board[x+2][y]){
@@ -284,7 +307,27 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //above
+               //right 3
+               else if (x < width-3){
+                  if (spot == this.board[x+1][y]){
+                     if (spot == this.board[x+2][y]){
+                        streaks[1]++;    
+                     }
+                  }
+               }
+               
+               //right 2
+               else if (x < width-2){
+                  if (spot == this.board[x+1][y]){
+                     //if (spot == this.board[x+2][y]){
+                        //if (spot == this.board[x+3][y]){
+                        streaks[2]++;
+                             
+                     
+                  }
+               }
+               
+               //above 4
                if (y < height-4){
                   if (spot == this.board[x][y+1]){
                      if (spot == this.board[x][y+2]){
@@ -294,7 +337,28 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //below
+               //above 3
+               else if (y < height-3){
+                  if (spot == this.board[x][y+1]){
+                     if (spot == this.board[x][y+2]){
+                        //if (spot == this.board[x][y+3]){
+                           streaks[1]++;
+                           
+                     }
+                  }
+               }
+               //above 2
+               else if (y < height-2){
+                  if (spot == this.board[x][y+1]){
+                     //if (spot == this.board[x][y+2]){
+                        //if (spot == this.board[x][y+3]){
+                           streaks[2]++;
+                            
+                     
+                  }
+               }
+               
+               //down 4
                if (y > 3){
                   if (spot == this.board[x][y-1]){
                      if (spot == this.board[x][y-2]){
@@ -304,7 +368,27 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //upRight
+               //down 3
+               else if (y > 2){
+                  if (spot == this.board[x][y-1]){
+                     if (spot == this.board[x][y-2]){
+                        //if (spot == this.board[x][y-3]){
+                           streaks[1]++;
+                             
+                     }
+                  }
+               }
+               //down 2
+               else if (y > 1){
+                  if (spot == this.board[x][y-1]){
+                     //if (spot == this.board[x][y-2]){
+                        //if (spot == this.board[x][y-3]){
+                           streaks[2]++;
+                             
+                     
+                  }
+               }
+               //upRight 4
                if (y < height-4 && x < width-4){
                   if (spot == this.board[x+1][y+1]){
                      if (spot == this.board[x+2][y+2]){
@@ -314,7 +398,27 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //downRight
+               //upRight 3
+               else if (y < height-3 && x < width-3){
+                  if (spot == this.board[x+1][y+1]){
+                     if (spot == this.board[x+2][y+2]){
+                        //if (spot == this.board[x+3][y+3]){
+                           streaks[1]++;
+                            
+                     }
+                  }
+               }
+               //upRight 2
+               else if (y < height-2 && x < width-2){
+                  if (spot == this.board[x+1][y+1]){
+                     //if (spot == this.board[x+2][y+2]){
+                        //if (spot == this.board[x+3][y+3]){
+                           streaks[2]++;
+                            
+                     
+                  }
+               }
+               //downRight4
                if (y > 3 && x < width-4){
                   if (spot == this.board[x+1][y-1]){
                      if (spot == this.board[x+2][y-2]){
@@ -324,7 +428,27 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //upLeft
+               //downRight 3
+               else if (y > 2 && x < width-3){
+                  if (spot == this.board[x+1][y-1]){
+                     if (spot == this.board[x+2][y-2]){
+                        //if (spot == this.board[x+3][y-3]){
+                           streaks[1]++;
+                             
+                     }
+                  }
+               }
+               //downRight 2
+               else if (y > 1 && x < width-2){
+                  if (spot == this.board[x+1][y-1]){
+                     //if (spot == this.board[x+2][y-2]){
+                        //if (spot == this.board[x+3][y-3]){
+                           streaks[2]++;
+                             
+                     
+                  }
+               }
+               //upLeft 4
                if (y < height-4 && x > 3){
                   if (spot == this.board[x-1][y+1]){
                      if (spot == this.board[x-2][y+2]){
@@ -334,7 +458,27 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               //downLeft
+               //upLeft 3
+               else if (y < height-3 && x > 2){
+                  if (spot == this.board[x-1][y+1]){
+                     if (spot == this.board[x-2][y+2]){
+                        //if (spot == this.board[x-3][y+3]){
+                           streaks[1]++;
+                            
+                     }
+                  }
+               }
+               //upLeft 2
+               else if (y < height-2 && x > 1){
+                  if (spot == this.board[x-1][y+1]){
+                     //if (spot == this.board[x-2][y+2]){
+                        //if (spot == this.board[x-3][y+3]){
+                           streaks[2]++;
+                            
+                     
+                  }
+               }
+               //downLeft 4
                if (y > 3 && x > 3){
                   if (spot == this.board[x-1][y-1]){
                      if (spot == this.board[x-2][y-2]){
@@ -344,81 +488,8 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               
-               
-               //3 in a row
-               if(spot != 0){
-               if (x > 2){
-                  if (spot == this.board[x-1][y]){
-                     if (spot == this.board[x-2][y]){
-
-                        streaks[1]++;
-                          
-                     }
-                  }
-               }
-               //right
-               if (x < width-3){
-                  if (spot == this.board[x+1][y]){
-                     if (spot == this.board[x+2][y]){
-                        //if (spot == this.board[x+3][y]){
-                        streaks[1]++;
-                             
-                     }
-                  }
-               }
-               //above
-               if (y < height-3){
-                  if (spot == this.board[x][y+1]){
-                     if (spot == this.board[x][y+2]){
-                        //if (spot == this.board[x][y+3]){
-                           streaks[1]++;
-                           
-                     }
-                  }
-               }
-               //below
-               if (y > 2){
-                  if (spot == this.board[x][y-1]){
-                     if (spot == this.board[x][y-2]){
-                        //if (spot == this.board[x][y-3]){
-                           streaks[1]++;
-                             
-                     }
-                  }
-               }
-               //upRight
-               if (y < height-3 && x < width-3){
-                  if (spot == this.board[x+1][y+1]){
-                     if (spot == this.board[x+2][y+2]){
-                        //if (spot == this.board[x+3][y+3]){
-                           streaks[1]++;
-                            
-                     }
-                  }
-               }
-               //downRight
-               if (y > 2 && x < width-3){
-                  if (spot == this.board[x+1][y-1]){
-                     if (spot == this.board[x+2][y-2]){
-                        //if (spot == this.board[x+3][y-3]){
-                           streaks[1]++;
-                             
-                     }
-                  }
-               }
-               //upLeft
-               if (y < height-3 && x > 2){
-                  if (spot == this.board[x-1][y+1]){
-                     if (spot == this.board[x-2][y+2]){
-                        //if (spot == this.board[x-3][y+3]){
-                           streaks[1]++;
-                            
-                     }
-                  }
-               }
-               //downLeft
-               if (y > 2 && x > 2){
+               //downLeft 3
+               else if (y > 2 && x > 2){
                   if (spot == this.board[x-1][y-1]){
                      if (spot == this.board[x-2][y-2]){
                         //if (spot == this.board[x-3][y-3]){
@@ -427,80 +498,8 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      }
                   }
                }
-               
-               //2 in a row
-               
-               if (x > 1){
-                  if (spot == this.board[x-1][y]){
-                     //if (spot == this.board[x-2][y]){
-
-                        streaks[2]++;
-                          
-                     
-                  }
-               }
-               //right
-               if (x < width-2){
-                  if (spot == this.board[x+1][y]){
-                     //if (spot == this.board[x+2][y]){
-                        //if (spot == this.board[x+3][y]){
-                        streaks[2]++;
-                             
-                     
-                  }
-               }
-               //above
-               if (y < height-2){
-                  if (spot == this.board[x][y+1]){
-                     //if (spot == this.board[x][y+2]){
-                        //if (spot == this.board[x][y+3]){
-                           streaks[2]++;
-                            
-                     
-                  }
-               }
-               //below
-               if (y > 1){
-                  if (spot == this.board[x][y-1]){
-                     //if (spot == this.board[x][y-2]){
-                        //if (spot == this.board[x][y-3]){
-                           streaks[2]++;
-                             
-                     
-                  }
-               }
-               //upRight
-               if (y < height-2 && x < width-2){
-                  if (spot == this.board[x+1][y+1]){
-                     //if (spot == this.board[x+2][y+2]){
-                        //if (spot == this.board[x+3][y+3]){
-                           streaks[2]++;
-                            
-                     
-                  }
-               }
-               //downRight
-               if (y > 1 && x < width-2){
-                  if (spot == this.board[x+1][y-1]){
-                     //if (spot == this.board[x+2][y-2]){
-                        //if (spot == this.board[x+3][y-3]){
-                           streaks[2]++;
-                             
-                     
-                  }
-               }
-               //upLeft
-               if (y < height-2 && x > 1){
-                  if (spot == this.board[x-1][y+1]){
-                     //if (spot == this.board[x-2][y+2]){
-                        //if (spot == this.board[x-3][y+3]){
-                           streaks[2]++;
-                            
-                     
-                  }
-               }
-               //downLeft
-               if (y > 1 && x > 1){
+               //downLeft 2
+               else if (y > 1 && x > 1){
                   if (spot == this.board[x-1][y-1]){
                      //if (spot == this.board[x-2][y-2]){
                         //if (spot == this.board[x-3][y-3]){
@@ -509,11 +508,13 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
                      
                   }
                
-               }
-            
+               } 
+            }
          }
-         
-   }}}return streaks;}
+      }
+      return streaks;
+   }
+   
    public boolean columnIsFull(int column){
       
       //if the first row of the column is full, return true
@@ -543,7 +544,7 @@ public class Connect4{ // things to fix: spacing, method contracts, making sure 
    }
    public static void printEnd(Connect4 game){
       //print who won
-      if(game.gameStatus()==1){
+      if(game.gameStatus() == 1){
          StdOut.println("RED WON!");
       }
       else if(game.gameStatus()==2){
