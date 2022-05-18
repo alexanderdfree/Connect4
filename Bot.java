@@ -48,7 +48,7 @@ public class Bot{
       }
       return numToBeat;
    }*/
-   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){ // BETA NEVER CHANGES
+   public double negamax2(Connect4 c, double alpha, double beta, int color, int depth){ // BETA NEVER CHANGES
       if (c.gameStatus() == 0) return 0;
       //int depthMax = 12;
       //int scaleValue = 10000 * c.getWidth() * c.getHeight()/(depth+1);
@@ -88,6 +88,36 @@ public class Bot{
       }
       return alpha;
    }
+   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){
+      int depthMax = 5;
+      
+      
+      //StdOut.println(depth);
+
+      if (c.gameStatus() == color) return (color%2+1)*10000;//Double.POSITIVE_INFINITY;
+      if (c.gameStatus() == 0) return 0;
+      if (c.gameStatus() != color && c.gameStatus() >= 1) return -(color%2+1)*10000;//Double.NEGATIVE_INFINITY;
+      if (depth > depthMax) return eval(c, color);
+      
+      double numToBeat = Double.NEGATIVE_INFINITY;
+      //for(int i = 0; i < c.openMoves().length; i++){
+      for(int i = 0; i < c.getWidth(); i++){
+         if(c.moveArray()[i]){
+            Connect4 d = c.clone();
+            //d.drop(d.openMoves()[i], color%2+1); //change the board for this iteration
+            //d.drop(d.openMoves()[i], color);
+            d.drop(i, color); //change the board for this iteration
+            //int current = -this.negamax(c, depth-1, -alpha, -beta); //current value of iteration
+            numToBeat = Math.max(numToBeat, -this.negamax(d, -alpha, -beta, color%2+1, depth+1));
+            
+         }
+      }
+      return numToBeat;
+
+   }
+   public int eval(Connect4 c, int color){
+      return (c.countBoard(color)[1]*4 + c.countBoard(color)[2]) - (c.countBoard(color%2+1)[1]*4 + c.countBoard(color%2+1)[2]);
+   }
    public int heuristicValue(Connect4 c, int color, boolean depthReached, int s){
       /*if (c.gameStatus() == color){
          return (color*2-3) * s;
@@ -125,14 +155,19 @@ public class Bot{
             //int id = 1;
             //int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player, 0);
             //int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player%2+1, 0);
-            //double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
-            double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
+            //double score = -this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
+            double score = this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
             if(score > bestTotal){
                bestMove = i;
                bestTotal = score;
             }
          }
          //d.undrop(c.openMoves()[i]);
+      }
+      if (bestMove == -1){
+         for(int i = 0; i < c.getWidth()-1; i++){
+            if (c.moveArray()[i]) return i;
+         }
       }
       return bestMove;
    }
