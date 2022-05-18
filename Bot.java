@@ -9,10 +9,10 @@ public class Bot{
       this.player = p;
    }
    
-   public int negamax(Connect4 c, int alpha, int beta, int color, int depth){
-      int depthMax = 13;
-      //int scaleValue = 10000 * c.getWidth() * c.getHeight()/depth;
-      int scaleValue = 100000;
+   public int negamax(Connect4 c, int alpha, int beta, int color, int depth){ // BETA NEVER CHANGES
+      int depthMax = 12;
+      int scaleValue = 10000 * c.getWidth() * c.getHeight()/(depth+1);
+      //int scaleValue = 100000;
       if (depth > depthMax) return heuristicValue(c, color, true, scaleValue);
       
       //StdOut.println(depth);
@@ -32,6 +32,7 @@ public class Bot{
       for(int i = 0; i < c.openMoves().length; i++){
          Connect4 d = c.clone();
          d.drop(d.openMoves()[i], color%2+1); //change the board for this iteration
+         //d.drop(d.openMoves()[i], color);
          //int current = -this.negamax(c, depth-1, -alpha, -beta); //current value of iteration
          numToBeat = Math.max(numToBeat, -this.negamax(d, -alpha, -beta, color%2+1, depth+1));
          alpha = Math.max(alpha, numToBeat);
@@ -73,6 +74,7 @@ public class Bot{
          //int score = this.minimax(c, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
          Connect4 d = c.clone();
          d.drop(d.openMoves()[i], this.player);
+         //d.drop(d.openMoves()[i], this.player%2+1);
          //int id = 1;
          int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player, 0);
          if(score > bestTotal){
