@@ -74,12 +74,13 @@ public class Bot{
       }
             
       for(int i = 0; i < c.getWidth(); i++){
-         if(c.moveArray()[i]){
+         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2);
+         if(c.moveArray()[j]){
             
             Connect4 d = c.clone();
-            d.drop(i, color); //change the board for this iteration
+            d.drop(j, color); //change the board for this iteration
             
-            upper = -this.negamax(d, -alpha, -beta, color%2+1, depth+1);
+            upper = -this.negamax2(d, -alpha, -beta, color%2+1, depth+1);
             //alpha = Math.max(alpha, numToBeat);
 
             if (upper >= beta) return upper;
@@ -102,11 +103,12 @@ public class Bot{
       double numToBeat = Double.NEGATIVE_INFINITY;
       //for(int i = 0; i < c.openMoves().length; i++){
       for(int i = 0; i < c.getWidth(); i++){
-         if(c.moveArray()[i]){
+         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2);
+         if(c.moveArray()[j]){
             Connect4 d = c.clone();
             //d.drop(d.openMoves()[i], color%2+1); //change the board for this iteration
             //d.drop(d.openMoves()[i], color);
-            d.drop(i, color); //change the board for this iteration
+            d.drop(j, color); //change the board for this iteration
             //int current = -this.negamax(c, depth-1, -alpha, -beta); //current value of iteration
             numToBeat = Math.max(numToBeat, -this.negamax(d, -alpha, -beta, color%2+1, depth+1));
             
@@ -143,22 +145,23 @@ public class Bot{
       //return 0;
       int bestMove = -1;
       double bestTotal = -Double.POSITIVE_INFINITY;
-      for(int i = 0; i < c.getWidth()-1; i++){
+      for(int i = 0; i < c.getWidth(); i++){
          //c.drop(c.openMoves()[i], this.player);
          //int score = this.minimax(c, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-         if(c.moveArray()[i]){
+         int j = (int)(c.getWidth()/2 + (1-2*(i%2))*(i+1)/2); //REMEMBER TO EDIT BEFORE TURN IN
+         if(c.moveArray()[j]){
             Connect4 d = c.clone();
             //d.drop(d.openMoves()[i], this.player);
-            d.drop(i, this.player);
+            d.drop(j, this.player);
             //d.drop(i, this.player%2+1);
             //d.drop(d.openMoves()[i], this.player%2+1);
             //int id = 1;
             //int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player, 0);
             //int score = this.negamax(d, Integer.MIN_VALUE, Integer.MAX_VALUE, this.player%2+1, 0);
-            //double score = -this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
-            double score = this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
+            double score = -this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
+            //double score = this.negamax2(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
             if(score > bestTotal){
-               bestMove = i;
+               bestMove = j;
                bestTotal = score;
             }
          }
