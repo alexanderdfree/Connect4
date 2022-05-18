@@ -9,7 +9,7 @@ public class Bot{
    }
    
    public double negamax(Connect4 c, double alpha, double beta, int color, int depth){
-      
+      //StdOut.println(c.moveTotal());
       //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
 
@@ -24,7 +24,6 @@ public class Bot{
             e.drop(i, color); //drop the token
             //if the next move is a win, return the amount of moves it has taken (to get here)
             if (e.gameStatus() == color) return (e.getWidth()*e.getHeight() + 1 - e.moveTotal())/2;
-            
             
          }
       }
