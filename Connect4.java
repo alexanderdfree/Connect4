@@ -148,6 +148,24 @@ public class Connect4{
       return; //if not, do nothing
       
    }
+   public int lowestHeight(int x){
+      /* drops a token with the given player's color
+            in the specified column, simulating gravity 
+         Input: int x, int user (# id of player)
+         Output: boolean (whether it worked or not)
+         Side Effects: update board[][]
+      */
+      
+      //find first empty space thinking from the bottom
+      
+      //for every y-slot on the board
+      for(int y = 0; y < this.height; y++){
+         //if the slot is empty
+         if(this.board[x][y] != 0) return y;
+      }
+      return -1; //if not, do nothing
+      
+   }
    public Connect4 clone(){
       //clone to avoid side effects in bot class
       

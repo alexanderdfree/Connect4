@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Bot{
    
    //instance variables
@@ -17,7 +19,7 @@ public class Bot{
       for(int i = 0; i < c.getWidth(); i++){ //for each column
          
          
-         if(c.moveArray()[i]){ //if the move is valid
+         if(c.moveArray()[i] && movesThatDontLose(c, color)[i]){ //if the move is valid
             //clone board to prevent side effects
             Connect4 e = c.clone();
             
@@ -25,7 +27,8 @@ public class Bot{
             //if the next move is a win, return the amount of moves it has taken (to get here)
             //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
             //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
-            if (e.gameStatus() == color) return (e.getWidth() * (e.getHeight()+1) - depth)/2;
+            if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
+            
             //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth)/2 + 1;
             //if (e.gameStatus() == color) return (int)((e.getWidth() * e.getHeight() - depth)/2 + 1);
             
@@ -35,11 +38,13 @@ public class Bot{
       //given that the next move is not a win
       //upper bound is the longest possible path to victory 
       //double upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
-      if (c.moveTotal() - depth + 1 > 2) return 0;
+      //if (c.moveTotal() - depth + 1 > 5) return 0;
+      //if (depth > 10) return 0;
       //double upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
       //int upper = (int)((c.getWidth() * c.getHeight() - depth)/2) - 1;
       //int upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
-      int upper = (c.getWidth() * (c.getHeight()-1) - depth)/2;
+      //int upper = (c.getWidth() * (c.getHeight()-1) - depth)/2;
+      int upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
       //alpha/beta pruning (elaborate)
       if (beta > upper){
          beta = upper;
@@ -60,11 +65,11 @@ public class Bot{
             
             d.drop(order[i], color); //drop the token in simulated board
             
-            upper = -this.negamax(d, -alpha, -beta, color%2+1, depth+1);
+            int result = -this.negamax(d, -alpha, -beta, color%2+1, depth+1);
 
             //alpha-beta pruning
-            if (upper >= beta) return upper;
-            if (upper > alpha) alpha = upper;
+            if (result >= beta) return result;
+            if (result > alpha) alpha = result;
          }
       }
       return alpha;
@@ -90,6 +95,7 @@ public class Bot{
             
             //the score is the negative... (definition of negamax)
             int score = -this.negamax(d, (int)Double.NEGATIVE_INFINITY, (int)Double.POSITIVE_INFINITY, this.player%2+1, d.moveTotal());
+            //int score = this.negamax(d, (int)Double.NEGATIVE_INFINITY, (int)Double.POSITIVE_INFINITY, this.player, d.moveTotal());
             //double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
             
             
@@ -115,7 +121,62 @@ public class Bot{
       //return the best possible move
       return bestMove;
    }
+   public static boolean[] movesThatDontLose(Connect4 c, int color){
+      boolean[] l = new boolean[c.getWidth()];
+      
+      for(int i = 0; i < c.getWidth(); i++){ //for each column
+         
+         //start in the middle column and work outwards for efficiency's sake
+         if(c.moveArray()[i]){ //if the move is valid
+            
+            //clone board to prevent side effects
+            Connect4 d = c.clone();
+            
+            d.drop(i, color); //drop the other color token in simulated board
+            
+            for(int j = 0; j < d.getWidth(); j++){ //for each column
+         
+               //start in the middle column and work outwards for efficiency's sake
+               if(d.moveArray()[j]){ //if the move is valid
+                  
+                  //clone board to prevent side effects
+                  Connect4 e = d.clone();
+                  e.drop(j, color%2+1); //drop the other color token in simulated board
+                  //if (d.gameStatus() == color%2+1) l[i] = false;
+                  //else l[i] = true;
+                  if (e.gameStatus() == color%2+1) l[i] = false;
+                  else l[i] = true;
+                  
+               }
+            }
+            
+            
+         }
+      }
+      
+      //StdOut.println(Arrays.toString(l));
+      return l;
    
+   }
+   public static boolean moveLoses(Connect4 c, int color, int col){
+      Connect4 d = c.clone();
+      d.drop(col, color);
+      for(int i = 0; i < d.getWidth(); i++){ //for each column
+         
+         //start in the middle column and work outwards for efficiency's sake
+         if(d.moveArray()[i]){ //if the move is valid
+            
+            //clone board to prevent side effects
+            Connect4 e = d.clone();
+            
+            e.drop(i, color); //drop the other color token in simulated board
+            
+            //if (e.gameStatus() == color%2+1) return true;
+            if (e.countBoard(color%2+1)[0] > 0) return true;
+         }
+      }
+      return false;
+   }
    public static int[] moveOrder(Connect4 c){
       //start in the middle column and work outwards for efficiency's sake
       
