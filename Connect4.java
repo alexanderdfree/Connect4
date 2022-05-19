@@ -585,6 +585,10 @@ public class Connect4{
       }
       return streaks;
    }
+   public int[] open3InARow(){
+      
+      return null;
+   }
    public boolean columnIsFull(int column){
       //returns if the column input is full
       
