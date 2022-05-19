@@ -23,15 +23,14 @@ public class Bot{
             
             e.drop(i, color); //drop the token
             //if the next move is a win, return the amount of moves it has taken (to get here)
-            if (e.gameStatus() == color) return (e.getWidth()*e.getHeight() + 1 - e.moveTotal())/2;
+            if (e.gameStatus() == color) return e.getWidth() * e.getHeight() - e.moveTotal() + 1;
             
          }
       }
       
       //given that the next move is not a win
-      //this is the longest possible path to victory 
-      //(in the amount of moves on the current player's side):
-      double upper = (c.getWidth()*c.getHeight() - 1 - c.moveTotal())/2;
+      //upper bound is the longest possible path to victory 
+      double upper = c.getWidth() * c.getHeight() - c.moveTotal() - 1;
       
       //alpha/beta pruning (elaborate)
       if (beta > upper){
@@ -88,7 +87,7 @@ public class Bot{
             
             if(score > bestTotal){ //if the score is better than the current best
                //change the current best move to be current column
-               bestMove = i;
+               bestMove = order[i];
                
                //change the current best score to be current score
                bestTotal = score;
