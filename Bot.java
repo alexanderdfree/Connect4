@@ -23,14 +23,20 @@ public class Bot{
             
             e.drop(i, color); //drop the token
             //if the next move is a win, return the amount of moves it has taken (to get here)
-            if (e.gameStatus() == color) return e.getWidth() * e.getHeight() - e.moveTotal() + 1;
+            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
+            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
+            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth)/2 + 1;
+            if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
             
          }
       }
       
       //given that the next move is not a win
       //upper bound is the longest possible path to victory 
-      double upper = c.getWidth() * c.getHeight() - c.moveTotal() - 1;
+      //double upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
+      if (depth > 10) return 0;
+      //double upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
+      double upper = (c.getWidth() * c.getHeight() - depth)/2 - 1;
       
       //alpha/beta pruning (elaborate)
       if (beta > upper){
@@ -81,7 +87,7 @@ public class Bot{
             d.drop(order[i], this.player); //drop the token in simulated board
             
             //the score is the negative... (definition of negamax)
-            double score = -this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, 0);
+            double score = -this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, d.moveTotal());
             //double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
             
             
@@ -123,25 +129,10 @@ public class Bot{
       
       //set middle column to be always first
       order[0] = w/2;
-      
-      
-      /*while (w/2 - difference >= 0 || w/2 + difference < w){
-         
-         if(w/2 - difference >= 0){
-            order[index] = w/2 - difference;
-            index++;
-         }
-         if(w/2 + difference < w){
-            order[index] = w/2 + difference;
-            index++;
-            
-         }
-         difference++;
-      }*/
-      //return
+
       //while the column will still be in bounds
-      
       while (difference <= w/2){
+         
          //start at width/2 and move outwards incrementally in steps of 1
          order[index] = w/2 - difference;
          //increment index
@@ -153,6 +144,7 @@ public class Bot{
          difference++;
          
       }
+      //return
       return order;
    }
    
