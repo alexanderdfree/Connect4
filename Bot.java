@@ -8,7 +8,7 @@ public class Bot{
       this.player = p;
    }
    
-   public double negamax(Connect4 c, double alpha, double beta, int color, int depth){
+   public int negamax(Connect4 c, int alpha, int beta, int color, int depth){
       //StdOut.println(c.moveTotal());
       //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
@@ -25,8 +25,9 @@ public class Bot{
             //if the next move is a win, return the amount of moves it has taken (to get here)
             //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
             //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
+            if (e.gameStatus() == color) return (e.getWidth() * (e.getHeight()+1) - depth)/2;
             //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth)/2 + 1;
-            if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
+            //if (e.gameStatus() == color) return (int)((e.getWidth() * e.getHeight() - depth)/2 + 1);
             
          }
       }
@@ -34,10 +35,11 @@ public class Bot{
       //given that the next move is not a win
       //upper bound is the longest possible path to victory 
       //double upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
-      if (depth > 10) return 0;
+      if (c.moveTotal() - depth + 1 > 2) return 0;
       //double upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
-      double upper = (c.getWidth() * c.getHeight() - depth)/2 - 1;
-      
+      //int upper = (int)((c.getWidth() * c.getHeight() - depth)/2) - 1;
+      //int upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
+      int upper = (c.getWidth() * (c.getHeight()-1) - depth)/2;
       //alpha/beta pruning (elaborate)
       if (beta > upper){
          beta = upper;
@@ -75,7 +77,7 @@ public class Bot{
       int[] order = Bot.moveOrder(c); //storing optimal move order
       
       //the number to beat (lowest possible)
-      double bestTotal = Double.NEGATIVE_INFINITY;
+      int bestTotal = (int)Double.NEGATIVE_INFINITY;
       
       //for every column
       for(int i = 0; i < c.getWidth(); i++){
@@ -87,7 +89,7 @@ public class Bot{
             d.drop(order[i], this.player); //drop the token in simulated board
             
             //the score is the negative... (definition of negamax)
-            double score = -this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player%2+1, d.moveTotal());
+            int score = -this.negamax(d, (int)Double.NEGATIVE_INFINITY, (int)Double.POSITIVE_INFINITY, this.player%2+1, d.moveTotal());
             //double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
             
             
