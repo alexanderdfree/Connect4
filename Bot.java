@@ -124,9 +124,9 @@ public class Bot{
       //set middle column to be always first
       order[0] = w/2;
       
-      //while the column will still be in bounds
-      while (w/2 - difference >= 0 || w/2 + difference < w){
-         //start at width/2 and move outwards incrementally in steps of 1
+      
+      /*while (w/2 - difference >= 0 || w/2 + difference < w){
+         
          if(w/2 - difference >= 0){
             order[index] = w/2 - difference;
             index++;
@@ -137,8 +137,22 @@ public class Bot{
             
          }
          difference++;
-      }
+      }*/
       //return
+      //while the column will still be in bounds
+      
+      while (difference <= w/2){
+         //start at width/2 and move outwards incrementally in steps of 1
+         order[index] = w/2 - difference;
+         //increment index
+         index++;
+         order[index] = w/2 + difference;
+         //increment index
+         index++;
+         //increment distance from middle
+         difference++;
+         
+      }
       return order;
    }
    
