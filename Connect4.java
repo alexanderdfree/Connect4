@@ -252,7 +252,7 @@ public class Connect4{
             //find a method that will run through for each direction, maybe while loop for each one
             //left
             if(spot != 0){
-               if (x > 3){
+               if (x >= 3){
                   if (spot == this.board[x-1][y]){
                      if (spot == this.board[x-2][y]){
                         if (spot == this.board[x-3][y]){
@@ -262,7 +262,7 @@ public class Connect4{
                   }
                }
                //right
-               if (x < width-4){
+               if (x <= width-4){
                   if (spot == this.board[x+1][y]){
                      if (spot == this.board[x+2][y]){
                         if (spot == this.board[x+3][y]){
@@ -272,7 +272,7 @@ public class Connect4{
                   }
                }
                //above
-               if (y < height-4){
+               if (y <= height-4){
                   if (spot == this.board[x][y+1]){
                      if (spot == this.board[x][y+2]){
                         if (spot == this.board[x][y+3]){
@@ -282,7 +282,7 @@ public class Connect4{
                   }
                }
                //below
-               if (y > 3){
+               if (y >= 3){
                   if (spot == this.board[x][y-1]){
                      if (spot == this.board[x][y-2]){
                         if (spot == this.board[x][y-3]){
@@ -292,7 +292,7 @@ public class Connect4{
                   }
                }
                //upRight
-               if (y < height-4 && x < width-4){
+               if (y <= height-4 && x <= width-4){
                   if (spot == this.board[x+1][y+1]){
                      if (spot == this.board[x+2][y+2]){
                         if (spot == this.board[x+3][y+3]){
@@ -302,7 +302,7 @@ public class Connect4{
                   }
                }
                //downRight
-               if (y > 3 && x < width-4){
+               if (y >= 3 && x <= width-4){
                   if (spot == this.board[x+1][y-1]){
                      if (spot == this.board[x+2][y-2]){
                         if (spot == this.board[x+3][y-3]){
@@ -312,7 +312,7 @@ public class Connect4{
                   }
                }
                //upLeft
-               if (y < height-4 && x > 3){
+               if (y <= height-4 && x >= 3){
                   if (spot == this.board[x-1][y+1]){
                      if (spot == this.board[x-2][y+2]){
                         if (spot == this.board[x-3][y+3]){
@@ -322,7 +322,7 @@ public class Connect4{
                   }
                }
                //downLeft
-               if (y > 3 && x > 3){
+               if (y >= 3 && x >= 3){
                   if (spot == this.board[x-1][y-1]){
                      if (spot == this.board[x-2][y-2]){
                         if (spot == this.board[x-3][y-3]){
@@ -356,7 +356,7 @@ public class Connect4{
             if(spot != 0){
             
                //left 4
-               if (x > 3){
+               if (x >= 3){
                   if (spot == this.board[x-1][y]){
                      if (spot == this.board[x-2][y]){
                         if (spot == this.board[x-3][y]){
@@ -366,7 +366,7 @@ public class Connect4{
                   }
                }
                //left 3
-               else if (x > 2){
+               else if (x >= 2){
                   if (spot == this.board[x-1][y]){
                      if (spot == this.board[x-2][y]){
 
@@ -376,7 +376,7 @@ public class Connect4{
                   }
                }
                //left 2
-               else if (x > 1){
+               else if (x >= 1){
                   if (spot == this.board[x-1][y]){
                      //if (spot == this.board[x-2][y]){
 
@@ -387,7 +387,7 @@ public class Connect4{
                }
                
                //right 4
-               if (x < width-4){
+               if (x <= width-4){
                   if (spot == this.board[x+1][y]){
                      if (spot == this.board[x+2][y]){
                         if (spot == this.board[x+3][y]){
@@ -397,7 +397,7 @@ public class Connect4{
                   }
                }
                //right 3
-               else if (x < width-3){
+               else if (x <= width-3){
                   if (spot == this.board[x+1][y]){
                      if (spot == this.board[x+2][y]){
                         streaks[1]++;    
@@ -406,7 +406,7 @@ public class Connect4{
                }
                
                //right 2
-               else if (x < width-2){
+               else if (x <= width-2){
                   if (spot == this.board[x+1][y]){
                      //if (spot == this.board[x+2][y]){
                         //if (spot == this.board[x+3][y]){
@@ -417,7 +417,7 @@ public class Connect4{
                }
                
                //above 4
-               if (y < height-4){
+               if (y <= height-4){
                   if (spot == this.board[x][y+1]){
                      if (spot == this.board[x][y+2]){
                         if (spot == this.board[x][y+3]){
@@ -427,7 +427,7 @@ public class Connect4{
                   }
                }
                //above 3
-               else if (y < height-3){
+               else if (y <= height-3){
                   if (spot == this.board[x][y+1]){
                      if (spot == this.board[x][y+2]){
                         //if (spot == this.board[x][y+3]){
@@ -437,7 +437,7 @@ public class Connect4{
                   }
                }
                //above 2
-               else if (y < height-2){
+               else if (y <= height-2){
                   if (spot == this.board[x][y+1]){
                      //if (spot == this.board[x][y+2]){
                         //if (spot == this.board[x][y+3]){
@@ -448,7 +448,7 @@ public class Connect4{
                }
                
                //down 4
-               if (y > 3){
+               if (y >= 3){
                   if (spot == this.board[x][y-1]){
                      if (spot == this.board[x][y-2]){
                         if (spot == this.board[x][y-3]){
@@ -458,7 +458,7 @@ public class Connect4{
                   }
                }
                //down 3
-               else if (y > 2){
+               else if (y >= 2){
                   if (spot == this.board[x][y-1]){
                      if (spot == this.board[x][y-2]){
                         //if (spot == this.board[x][y-3]){
@@ -468,7 +468,7 @@ public class Connect4{
                   }
                }
                //down 2
-               else if (y > 1){
+               else if (y >= 1){
                   if (spot == this.board[x][y-1]){
                      //if (spot == this.board[x][y-2]){
                         //if (spot == this.board[x][y-3]){
@@ -478,7 +478,7 @@ public class Connect4{
                   }
                }
                //upRight 4
-               if (y < height-4 && x < width-4){
+               if (y <= height-4 && x <= width-4){
                   if (spot == this.board[x+1][y+1]){
                      if (spot == this.board[x+2][y+2]){
                         if (spot == this.board[x+3][y+3]){
@@ -488,7 +488,7 @@ public class Connect4{
                   }
                }
                //upRight 3
-               else if (y < height-3 && x < width-3){
+               else if (y <= height-3 && x <= width-3){
                   if (spot == this.board[x+1][y+1]){
                      if (spot == this.board[x+2][y+2]){
                         //if (spot == this.board[x+3][y+3]){
@@ -498,7 +498,7 @@ public class Connect4{
                   }
                }
                //upRight 2
-               else if (y < height-2 && x < width-2){
+               else if (y <= height-2 && x <= width-2){
                   if (spot == this.board[x+1][y+1]){
                      //if (spot == this.board[x+2][y+2]){
                         //if (spot == this.board[x+3][y+3]){
@@ -508,7 +508,7 @@ public class Connect4{
                   }
                }
                //downRight4
-               if (y > 3 && x < width-4){
+               if (y >= 3 && x <= width-4){
                   if (spot == this.board[x+1][y-1]){
                      if (spot == this.board[x+2][y-2]){
                         if (spot == this.board[x+3][y-3]){
@@ -518,7 +518,7 @@ public class Connect4{
                   }
                }
                //downRight 3
-               else if (y > 2 && x < width-3){
+               else if (y >= 2 && x <= width-3){
                   if (spot == this.board[x+1][y-1]){
                      if (spot == this.board[x+2][y-2]){
                         //if (spot == this.board[x+3][y-3]){
@@ -528,7 +528,7 @@ public class Connect4{
                   }
                }
                //downRight 2
-               else if (y > 1 && x < width-2){
+               else if (y >= 1 && x <= width-2){
                   if (spot == this.board[x+1][y-1]){
                      //if (spot == this.board[x+2][y-2]){
                         //if (spot == this.board[x+3][y-3]){
@@ -538,7 +538,7 @@ public class Connect4{
                   }
                }
                //upLeft 4
-               if (y < height-4 && x > 3){
+               if (y <= height-4 && x >= 3){
                   if (spot == this.board[x-1][y+1]){
                      if (spot == this.board[x-2][y+2]){
                         if (spot == this.board[x-3][y+3]){
@@ -548,7 +548,7 @@ public class Connect4{
                   }
                }
                //upLeft 3
-               else if (y < height-3 && x > 2){
+               else if (y <= height-3 && x >= 2){
                   if (spot == this.board[x-1][y+1]){
                      if (spot == this.board[x-2][y+2]){
                         //if (spot == this.board[x-3][y+3]){
@@ -558,7 +558,7 @@ public class Connect4{
                   }
                }
                //upLeft 2
-               else if (y < height-2 && x > 1){
+               else if (y <= height-2 && x >= 1){
                   if (spot == this.board[x-1][y+1]){
                      //if (spot == this.board[x-2][y+2]){
                         //if (spot == this.board[x-3][y+3]){
@@ -568,7 +568,7 @@ public class Connect4{
                   }
                }
                //downLeft 4
-               if (y > 3 && x > 3){
+               if (y >= 3 && x >= 3){
                   if (spot == this.board[x-1][y-1]){
                      if (spot == this.board[x-2][y-2]){
                         if (spot == this.board[x-3][y-3]){
@@ -578,7 +578,7 @@ public class Connect4{
                   }
                }
                //downLeft 3
-               else if (y > 2 && x > 2){
+               else if (y >= 2 && x >= 2){
                   if (spot == this.board[x-1][y-1]){
                      if (spot == this.board[x-2][y-2]){
                         //if (spot == this.board[x-3][y-3]){
@@ -588,7 +588,7 @@ public class Connect4{
                   }
                }
                //downLeft 2
-               else if (y > 1 && x > 1){
+               else if (y >= 1 && x >= 1){
                   if (spot == this.board[x-1][y-1]){
                      //if (spot == this.board[x-2][y-2]){
                         //if (spot == this.board[x-3][y-3]){
