@@ -622,7 +622,7 @@ public class Connect4{
       if(game.gameStatus() == 1){
          StdOut.println("RED WON!");
       }
-      else if(game.gameStatus()==2){
+      else if(game.gameStatus() == 2){
          StdOut.println("YELLOW WON");
       }
       else{
@@ -645,7 +645,7 @@ public class Connect4{
       
       if(botBool.equals("Yes") || botBool.equals("Y") || botBool.equals("yes") || botBool.equals("y")){
          if(colorInt == 1){
-            while(game.gameStatus()==-1){//check if the game is over
+            while(game.gameStatus() == -1){//check if the game is over
             
                //print the board
                game.print();
@@ -664,7 +664,7 @@ public class Connect4{
             }
          }
          else{
-            while(game.gameStatus()==-1){//check if the game is over
+            while(game.gameStatus() == -1){//check if the game is over
             
                //print the board
                game.print();
@@ -673,7 +673,7 @@ public class Connect4{
                botRedTurn(game, b);
                
                //check if the game is over
-               if(game.gameStatus()!=-1) break;
+               if(game.gameStatus() != -1) break;
                
                //print the board
                game.print();
@@ -684,7 +684,7 @@ public class Connect4{
          }
       }
       else{
-         while(game.gameStatus()==-1){//check if the game is over
+         while(game.gameStatus() == -1){//check if the game is over
          
             //print the board
             game.print();
@@ -693,7 +693,7 @@ public class Connect4{
             humanRedTurn(game);
             
             //check if the game is over
-            if(game.gameStatus()!=-1) break;
+            if(game.gameStatus() != -1) break;
             
             //print the board
             game.print();

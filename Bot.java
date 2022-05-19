@@ -98,7 +98,7 @@ public class Bot{
       //prevents error when forced into losing
       //(basically just admits defeat)
       if (bestMove == -1){
-         for(int i = 0; i < c.getWidth()-1; i++){
+         for(int i = 0; i < c.getWidth(); i++){
             //for each column, make any valid move
             if (c.moveArray()[i]) return i;
          }
