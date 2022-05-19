@@ -161,7 +161,8 @@ public class Bot{
    public static boolean moveLoses(Connect4 c, int color, int col){
       Connect4 d = c.clone();
       d.drop(col, color);
-      d.print();
+      //d.print();
+      //StdOut.println("");
       for(int i = 0; i < d.getWidth(); i++){ //for each column
          
          //start in the middle column and work outwards for efficiency's sake
@@ -170,7 +171,7 @@ public class Bot{
             //clone board to prevent side effects
             Connect4 e = d.clone();
             
-            e.drop(i, color); //drop the other color token in simulated board
+            e.drop(i, color%2+1); //drop the other color token in simulated board
             
             //if (e.gameStatus() == color%2+1) return true;
             if (e.gameStatus() == color%2+1) return true;
