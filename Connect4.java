@@ -239,6 +239,39 @@ public class Connect4{
       
       return; //if not, do nothing
    }
+
+   public int[] twoInARow(int player){
+      /* returns an integer array of the two coordinates of the two tokens in a row
+      in the bottom row of the board
+        inputs: int player (the player who's turn it is)
+        outputs: int[] (the two coordinates of the two tokens in a row)
+        ex:
+        Connect4 c = new Connect4(1, 7, 6)
+
+        c.drop(3, 1)
+        c.drop(2, 1)
+
+        c.twoInARow(1) --> [2]
+       */
+
+
+      int count = 0;
+      //for every column
+      for(int x = 1; x < this.width-2; x++) {
+         //if the two spaces are filled with opponent color
+         //and the adjacent ones are empty
+         if(this.board[0][x] == 0 && this.board[0][x+1] == 0)  count++;
+      }
+      int[] twos = new int[count];
+      count = 0;
+      for(int x = 0; x < this.width-1; x++) {
+          if(this.board[0][x] == 0 && this.board[0][x+1] == 0) {
+             twos[count] = x;
+             count++;
+          }
+      }
+      return twos;
+   }
    public int moveTotal(){
       //returns depth of entire board so far (amount of moves made in lifetime)
       return this.moves;

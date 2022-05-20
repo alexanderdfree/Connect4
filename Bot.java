@@ -14,7 +14,7 @@ public class Bot{
    output: int score of this move
    ex: */
 
-      //score is 0 if game is a draw
+      //score is 0 if game is a draw, -value for loss, +value for win
       if (c.gameStatus() == 0) return 0;
 
       //store best move order
@@ -33,29 +33,61 @@ public class Bot{
             
          }
       }
-      
+
       //given that the next move is not a win
       //upper bound is the longest possible path to victory
+
       int upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
+      //int upper = (int)Double.POSITIVE_INFINITY;
 
       //alpha/beta pruning
-      if (beta > upper){
-         beta = upper;
-         if (alpha >= beta) return beta;
-      }
+      if (beta > upper) beta = upper;
+      if (beta > upper && alpha >= beta) return beta;
 
       //recursive algorithm that calculates score for each move
+      for (int i = 0; i < c.twoInARow(color).length; i++){
+            //if the move is valid
+            if (c.moveArray()[c.twoInARow(color)[i]+2]){
+                //clone board to prevent side effects
+                Connect4 e = c.clone();
+
+                e.drop(c.twoInARow(color)[i]+2, color); //drop the token
+
+                //if the next move is a win, return the amount of moves it has taken (to get here)
+                //subtracted from total moves
+                //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
+
+                //recursive call
+                int result1 = -negamax(e, -beta, -alpha, color%2+1, depth + 1);
+
+
+            }
+            if (c.twoInARow(color)[i] >= 1 && c.moveArray()[c.twoInARow(color)[i]-1]){
+               //clone board to prevent side effects
+               Connect4 e = c.clone();
+
+               e.drop(c.twoInARow(color)[i]-1, color); //drop the token
+
+               //if the next move is a win, return the amount of moves it has taken (to get here)
+               //subtracted from total moves
+               //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
+
+               //recursive call
+               int result1 = -negamax(e, -beta, -alpha, color%2+1, depth + 1);
+
+            }
+      }
       for(int i = 0; i < c.getWidth(); i++){ //for each column
          
          //start in the middle column and work outwards for efficiency's sake
-         if(c.moveArray()[order[i]]){ //if the move is valid
+         if(c.moveArray()[order[i]]/* && !moveLoses(c, color, order[i])*/){ //if the move is valid
             
             //clone board to prevent side effects
             Connect4 d = c.clone();
             
             d.drop(order[i], color); //drop the token in simulated board
             
-            int result = -this.negamax(d, -alpha, -beta, color%2+1, depth+1);
+            int result = -this.negamax(d, -beta, -alpha, color%2+1, depth+1);
 
             //alpha-beta pruning
             if (result >= beta) return result;
@@ -78,33 +110,34 @@ public class Bot{
       int bestTotal = (int)Double.NEGATIVE_INFINITY;
       
       //for every column
-      for(int i = 0; i < c.getWidth(); i++){
-         
-         if(c.moveArray()[order[i]] && !moveLoses(c, this.player, order[i])){ //if the move is valid
-         
-            Connect4 d = c.clone(); //clone connect4 to prevent side effects
-            
-            d.drop(order[i], this.player); //drop the token in simulated board
-            
-            //my score is the inverse of my opponent's (definition of negamax)
-            int score = -this.negamax(d, (int)Double.NEGATIVE_INFINITY, (int)Double.POSITIVE_INFINITY, this.player%2+1, d.moveTotal());
+      for(int i = 0; i < c.getWidth(); i++) {
 
-            if(score > bestTotal){ //if the score is better than the current best
-               //change the current best move to be current column
+         if (c.moveArray()[order[i]]/* && !moveLoses(c, this.player, order[i])*/) { //if the move is valid
+
+            //clone board to prevent side effects
+            Connect4 e = c.clone();
+
+            e.drop(order[i], this.player); //drop the token in simulated board
+
+            int score = -this.negamax(e, (int)Double.POSITIVE_INFINITY, (int)Double.NEGATIVE_INFINITY, this.player % 2 + 1, e.moveTotal());
+
+            //if the score is better than the previous best score
+            if (score > bestTotal) {
                bestMove = order[i];
-               
-               //change the current best score to be current score
                bestTotal = score;
             }
          }
       }
+         
+
       
       //prevents error when forced into losing
       //(basically just admits defeat)
+
       if (bestMove == -1){
          for(int i = 0; i < c.getWidth(); i++){
             //for each column, make any valid move
-            if (c.moveArray()[i]) return i;
+            if (c.moveArray()[order[i]]) return order[i];
          }
       }
       
@@ -159,7 +192,7 @@ public class Bot{
    Bot.moveLoses(c, 2, 3)-->false*/
       Connect4 d = c.clone();
       d.drop(col, color);
-
+      if (d.gameStatus() == color) return false;
       for(int i = 0; i < d.getWidth(); i++){ //for each column
          
          //start in the middle column and work outwards for efficiency's sake
