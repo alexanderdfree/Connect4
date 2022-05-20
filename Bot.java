@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Bot{
    
    //instance variables
@@ -15,19 +13,19 @@ public class Bot{
    input: Connect4 c, int alpha(lower bound of pruning), int beta(upper bound of pruning), int color(which piece the bot is), int depth(how many moves into the future to look)
    output: int score of this move
    ex: */
-      //StdOut.println(c.moveTotal());
+
       //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
 
+      //store best move order
+      int[] order = Bot.moveOrder(c);
       //check if player can win in next move
       for(int i = 0; i < c.getWidth(); i++){ //for each column
-         
-         
-         if(c.moveArray()[i]){ //if the move is valid
+         if(c.moveArray()[order[i]]){ //if the move is valid
             //clone board to prevent side effects
             Connect4 e = c.clone();
             
-            e.drop(i, color); //drop the token
+            e.drop(order[i], color); //drop the token
 
             //if the next move is a win, return the amount of moves it has taken (to get here)
             //subtracted from total moves
@@ -39,15 +37,13 @@ public class Bot{
       //given that the next move is not a win
       //upper bound is the longest possible path to victory
       int upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
-      //alpha/beta pruning (elaborate)
+
+      //alpha/beta pruning
       if (beta > upper){
          beta = upper;
          if (alpha >= beta) return beta;
       }
-      
-      //store best move order
-      int[] order = Bot.moveOrder(c);
-      
+
       //recursive algorithm that calculates score for each move
       for(int i = 0; i < c.getWidth(); i++){ //for each column
          
@@ -84,7 +80,7 @@ public class Bot{
       //for every column
       for(int i = 0; i < c.getWidth(); i++){
          
-         if(c.moveArray()[order[i]] && !moveLoses(c, this.player, i)){ //if the move is valid
+         if(c.moveArray()[order[i]] && !moveLoses(c, this.player, order[i])){ //if the move is valid
          
             Connect4 d = c.clone(); //clone connect4 to prevent side effects
             
