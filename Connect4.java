@@ -654,6 +654,8 @@ public class Connect4{
    public static void main(String[] args){
       //"ui", std in, std out, print after every turn, check win vs. draw, etc
       StdOut.println("Red or yellow?");
+      Class c = Connect4.class;
+      StdOut.println(c.getName());
       String color = StdIn.readLine();
       
       int colorInt = 2;
