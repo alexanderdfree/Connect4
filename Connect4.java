@@ -223,8 +223,7 @@ public class Connect4{
             a.board[x][y] = this.board[x][y]; //0 represents empty, 1 represents red, 2 represents yellow
          }
       }
-      //return
-      //a.moves = this.moves;
+
       return a;
    } 
    public void undrop(int x){//unused method
