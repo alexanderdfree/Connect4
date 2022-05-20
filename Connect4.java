@@ -1,4 +1,4 @@
-public class Connect4{
+public class Connect4 implements Cloneable{
    
    //instance variables
    private int player; //1 for red, 2 for yellow
@@ -145,7 +145,7 @@ public class Connect4{
 
          }
       }
-      return; //if not, do nothing
+      //return; //if not, do nothing
       
    }
    public int lowestHeight(int x){
@@ -167,33 +167,26 @@ public class Connect4{
       
    }
    public Connect4 clone(){
+      //Connect4 connect4 = (Connect4) super.clone();
+      //Connect4 clone = (Connect4) super.clone();
+      //clone = (Connect4) this.clone();
+      //Object a = Connect4.super.clone();
       //clone to avoid side effects in bot class
-      
+      //return clone;
       //create new Connect4 object
       Connect4 a = new Connect4(this.player, this.width, this.height, this.moves);
       
       for(int x = 0; x < this.width; x++){ //for every column
-         for(int y = 0; y < this.height; y++){ //and row
-            //copy the board contents
-            a.board[x][y] = this.board[x][y]; //0 represents empty, 1 represents red, 2 represents yellow
-         }
+         //and row
+         //copy the board contents
+         //0 represents empty, 1 represents red, 2 represents yellow
+         if (this.height >= 0) System.arraycopy(this.board[x], 0, a.board[x], 0, this.height);
       }
       //return
       //a.moves = this.moves;
       return a;
-   } 
-   public void undrop(int x){
-      //undo the drop() method
-      for(int y = this.height-1; y > 0; y--){
-         //if the slot is filled
-         if(this.board[x][y] != 0){
-            this.board[x][y] = 0; //remove the token at (column (x), row (y))
-            return; //return blank to end
-         }
-      }
-      
-      return; //if not, do nothing
    }
+
    public int moveTotal(){
       //returns depth of entire board so far (amount of moves made in lifetime)
       return this.moves;
@@ -243,7 +236,7 @@ public class Connect4{
       //for loop if 4 are in a row
          //for loop for vertical and horizontal terminates -> i < height - 4, width - 4
          //diagonal will be annoying, look at board and think of possible options
-         
+
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
             int spot = this.board[x][y];
@@ -654,8 +647,8 @@ public class Connect4{
    public static void main(String[] args){
       //"ui", std in, std out, print after every turn, check win vs. draw, etc
       StdOut.println("Red or yellow?");
-      Class c = Connect4.class;
-      StdOut.println(c.getName());
+      //Class c = Connect4.class;
+      //StdOut.println(c.getName());
       String color = StdIn.readLine();
       
       int colorInt = 2;
