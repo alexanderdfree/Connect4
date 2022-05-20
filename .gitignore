@@ -17,8 +17,12 @@
 *.ear
 *.zip
 *.tar.gz
+out
+*.toml
 *.rar
-
+*.xml
+*.iml
+*.idea
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
