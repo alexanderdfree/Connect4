@@ -98,7 +98,7 @@ public class Connect4{
    
    public int[] openMoves(){
    /* returns an array of valid moves
-   input: NA
+   input: NaN
    output: an array of all possible moves
    ex:
    Connect4 c = new Connect4(1, 7, 6)
@@ -131,7 +131,7 @@ public class Connect4{
    }
    public boolean[] moveArray(){
    /* return a boolean array telling whether or not a move is valid(ver similiar to Connect4.openMoves())
-   input: NA
+   input: NaN
    output: an array of all possible moves
    ex:
    Connect4 c = new Connect4(1, 7, 6)
@@ -207,9 +207,15 @@ public class Connect4{
       
    }
    public Connect4 clone(){
-      //clone to avoid side effects in bot class
-      
-      //create new Connect4 object
+   /* returns a clone by value
+   inputs: NaN
+   outputs: a Connect4 clone of this Connect4 object
+   ex:
+   Connect4 c = new Connect4(1, 7, 6)
+   c.drop(3,1)
+   c.drop(3,2)
+   c.clone()-->c(by value not reference)*/
+   
       Connect4 a = new Connect4(this.player, this.width, this.height, this.moves);
       
       for(int x = 0; x < this.width; x++){ //for every column
@@ -222,7 +228,7 @@ public class Connect4{
       //a.moves = this.moves;
       return a;
    } 
-   public void undrop(int x){
+   public void undrop(int x){//unused method
       //undo the drop() method
       for(int y = this.height-1; y > 0; y--){
          //if the slot is filled
@@ -278,7 +284,18 @@ public class Connect4{
    }
    
    public int gameStatus(){
-      //returns int of player that won, 0 for draw, -1 for still going
+   /* returns int of player that won, 0 for draw, -1 for still going
+   input: NaN
+   output: int representing if someone won or not
+   ex:
+   Connect4 c = new Connect4(1, 7, 6)
+   c.gameStatus()--> -1
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.gameStatus()--> 1*/
+      
       
       //for loop if 4 are in a row
          //for loop for vertical and horizontal terminates -> i < height - 4, width - 4
@@ -384,7 +401,8 @@ public class Connect4{
       if (count == this.width) return 0;
       return -1; //if 1. nobody has 4 in a row, 2. the board still has room
    }
-   public int[] countBoard(int player){
+   public int[] countBoard(int player){//unused
+   /* returns an int array representing */
       int[] streaks = new int[3];
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
@@ -643,12 +661,10 @@ public class Connect4{
       }
       return streaks;
    }
-   public int[] open3InARow(){
-      
-      return null;
-   }
    public boolean columnIsFull(int column){
-      //returns if the column input is full
+   /* returns if the column is full
+   input: int column
+   output: boolean whether column is full or not*/
       
       //if the first row of the column is full, return true
       if(board[column][this.height-1] != 0) return true;

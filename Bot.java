@@ -11,6 +11,10 @@ public class Bot{
    }
    
    public int negamax(Connect4 c, int alpha, int beta, int color, int depth){
+   /* returns an int that is the score of this branch/move
+   input: Connect4 c, int alpha(lower bound of pruning), int beta(upper bound of pruning), int color(which piece the bot is), int depth(how many moves into the future to look)
+   output: int score of this move
+   ex: */
       //StdOut.println(c.moveTotal());
       //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
@@ -76,6 +80,9 @@ public class Bot{
    }
    
    public int findMove(Connect4 c){
+   /* finds and returns the best move using Bot.negamax()
+   input: Connect4 c
+   output: (hopefully)the best possible move*/
       //this method returns best move as column integer
       
       int bestMove = -1; //placeholder for best move
@@ -121,7 +128,7 @@ public class Bot{
       //return the best possible move
       return bestMove;
    }
-   public static boolean[] movesThatDontLose(Connect4 c, int color){
+   public static boolean[] movesThatDontLose(Connect4 c, int color){//unused
       boolean[] l = new boolean[c.getWidth()];
       
       for(int i = 0; i < c.getWidth(); i++){ //for each column
@@ -159,6 +166,16 @@ public class Bot{
    
    }
    public static boolean moveLoses(Connect4 c, int color, int col){
+   /* return a boolean telling whether this move loses the bot the game or not
+   input: Connect4 c, int color(what color this bot is), int col(column to check)
+   output: boolean representing whether doing this move will lose this bot the game
+   ex:
+   Connect4 c = new Connect4(1, 7, 6)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   Bot.moveLoses(c, 2, 4)-->true
+   Bot.moveLoses(c, 2, 3)-->false*/
       Connect4 d = c.clone();
       d.drop(col, color);
       //d.print();
@@ -173,13 +190,13 @@ public class Bot{
             
             e.drop(i, color%2+1); //drop the other color token in simulated board
             
-            //if (e.gameStatus() == color%2+1) return true;
-            if (e.gameStatus() == color%2+1) return true;
+            if (e.gameStatus() == color%2+1) return true;//if the bot loses
          }
       }
       return false;
    }
    public static int[] moveOrder(Connect4 c){
+   /* returns an int array representing which columns to work through in what order*/
       //start in the middle column and work outwards for efficiency's sake
       
       //access width
