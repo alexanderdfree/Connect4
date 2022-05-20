@@ -23,31 +23,21 @@ public class Bot{
       for(int i = 0; i < c.getWidth(); i++){ //for each column
          
          
-         if(c.moveArray()[i] && !moveLoses(c, color, i)){ //if the move is valid
+         if(c.moveArray()[i]){ //if the move is valid
             //clone board to prevent side effects
             Connect4 e = c.clone();
             
             e.drop(i, color); //drop the token
+
             //if the next move is a win, return the amount of moves it has taken (to get here)
-            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
-            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
-            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth + 1)/2;
+            //subtracted from total moves
             if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - e.moveTotal() + 1)/2;
-            //if (e.gameStatus() == color) return (e.getWidth() * e.getHeight() - depth)/2 + 1;
-            //if (e.gameStatus() == color) return (int)((e.getWidth() * e.getHeight() - depth)/2 + 1);
             
          }
       }
       
       //given that the next move is not a win
-      //upper bound is the longest possible path to victory 
-      //double upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
-      //if (c.moveTotal() - depth + 1 > 5) return 0;
-      //if (depth > 10) return 0;
-      //double upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
-      //int upper = (int)((c.getWidth() * c.getHeight() - depth)/2) - 1;
-      //int upper = (c.getWidth() * c.getHeight() - depth - 1)/2;
-      //int upper = (c.getWidth() * (c.getHeight()-1) - depth)/2;
+      //upper bound is the longest possible path to victory
       int upper = (c.getWidth() * c.getHeight() - c.moveTotal() - 1)/2;
       //alpha/beta pruning (elaborate)
       if (beta > upper){
@@ -94,18 +84,15 @@ public class Bot{
       //for every column
       for(int i = 0; i < c.getWidth(); i++){
          
-         if(c.moveArray()[order[i]]){ //if the move is valid
+         if(c.moveArray()[order[i]] && !moveLoses(c, this.player, i)){ //if the move is valid
          
             Connect4 d = c.clone(); //clone connect4 to prevent side effects
             
             d.drop(order[i], this.player); //drop the token in simulated board
             
-            //the score is the negative... (definition of negamax)
+            //my score is the inverse of my opponent's (definition of negamax)
             int score = -this.negamax(d, (int)Double.NEGATIVE_INFINITY, (int)Double.POSITIVE_INFINITY, this.player%2+1, d.moveTotal());
-            //int score = this.negamax(d, (int)Double.NEGATIVE_INFINITY, (int)Double.POSITIVE_INFINITY, this.player, d.moveTotal());
-            //double score = this.negamax(d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.player, 0);
-            
-            
+
             if(score > bestTotal){ //if the score is better than the current best
                //change the current best move to be current column
                bestMove = order[i];
@@ -149,8 +136,7 @@ public class Bot{
                   //clone board to prevent side effects
                   Connect4 e = d.clone();
                   e.drop(j, color%2+1); //drop the other color token in simulated board
-                  //if (d.gameStatus() == color%2+1) l[i] = false;
-                  //else l[i] = true;
+
                   if (e.gameStatus() == color%2+1) l[i] = false;
                   else l[i] = true;
                   
@@ -160,8 +146,7 @@ public class Bot{
             
          }
       }
-      
-      //StdOut.println(Arrays.toString(l));
+
       return l;
    
    }
@@ -178,8 +163,7 @@ public class Bot{
    Bot.moveLoses(c, 2, 3)-->false*/
       Connect4 d = c.clone();
       d.drop(col, color);
-      //d.print();
-      //StdOut.println("");
+
       for(int i = 0; i < d.getWidth(); i++){ //for each column
          
          //start in the middle column and work outwards for efficiency's sake
