@@ -76,7 +76,20 @@ public class Connect4{
    }
    
    public char getSpotChar(int x, int y){
-      //get character at a specific spot
+   /* returns the piece at given spot
+   input x, y location of spot
+   Output: char representing 
+   E = empty
+   R = red
+   Y = yellow
+   ex:
+
+   Connect4 c = new Connect4(1, 7, 6)
+   c.drop(3, 1)
+   c.drop(2, 2)
+   c.getSpotChar(3, 0)-->'R'
+   c.getSpotChar(2, 0)-->'Y'
+   c.getSptChar(3, 1)-->'E'*/
       
       if(board[x][y] == 0) return 'E';
       else if(board[x][y] == 1) return 'R';
@@ -84,7 +97,20 @@ public class Connect4{
    }
    
    public int[] openMoves(){
-      //returns an array of valid moves
+   /* returns an array of valid moves
+   input: NA
+   output: an array of all possible moves
+   ex:
+   Connect4 c = new Connect4(1, 7, 6)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.openMoves()-->[0, 1, 2, 3, 4, 5, 6]
+   d.drop(3,1)
+   c.openMoves()-->[0, 1, 2, 4, 5, 6]*/
+
       int count = 0;
       //int newInts[];
       for(int x = 0; x < this.width; x++){
@@ -104,6 +130,20 @@ public class Connect4{
       
    }
    public boolean[] moveArray(){
+   /* return a boolean array telling whether or not a move is valid(ver similiar to Connect4.openMoves())
+   input: NA
+   output: an array of all possible moves
+   ex:
+   Connect4 c = new Connect4(1, 7, 6)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.drop(3,1)
+   c.openMoves()-->[true, true, true, true, true, true, true]
+   d.drop(3,1)
+   c.openMoves()-->[true, true, true, false, true, true, true]*/
+
       //return an array int[width][true/false]
       //of column index and whether the move is valid
       
