@@ -112,7 +112,6 @@ public class Connect4{
    c.openMoves()-->[0, 1, 2, 4, 5, 6]*/
 
       int count = 0;
-      //int newInts[];
       for(int x = 0; x < this.width; x++){
          if(this.board[x][this.height-1] == 0){
             count++;
@@ -304,8 +303,6 @@ public class Connect4{
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
             int spot = this.board[x][y];
-            //int spotsToCheck = 1;
-            //int connected = 1;
             //find a method that will run through for each direction, maybe while loop for each one
             //left
             if(spot != 0){
@@ -407,8 +404,6 @@ public class Connect4{
       for(int x = 0; x < this.width; x++){
          for(int y = 0; y < this.height; y++){
             int spot = this.board[x][y];
-            //int spotsToCheck = 1;
-            //int connected = 1;
             //find a method that will run through for each direction, maybe while loop for each one
             //left
             if(spot != 0){
@@ -436,7 +431,6 @@ public class Connect4{
                //left 2
                else if (x >= 1){
                   if (spot == this.board[x-1][y]){
-                     //if (spot == this.board[x-2][y]){
 
                         streaks[2]++;
                           
@@ -466,8 +460,6 @@ public class Connect4{
                //right 2
                else if (x <= width-2){
                   if (spot == this.board[x+1][y]){
-                     //if (spot == this.board[x+2][y]){
-                        //if (spot == this.board[x+3][y]){
                         streaks[2]++;
                              
                      
@@ -488,7 +480,6 @@ public class Connect4{
                else if (y <= height-3){
                   if (spot == this.board[x][y+1]){
                      if (spot == this.board[x][y+2]){
-                        //if (spot == this.board[x][y+3]){
                            streaks[1]++;
                            
                      }
@@ -497,8 +488,6 @@ public class Connect4{
                //above 2
                else if (y <= height-2){
                   if (spot == this.board[x][y+1]){
-                     //if (spot == this.board[x][y+2]){
-                        //if (spot == this.board[x][y+3]){
                            streaks[2]++;
                             
                      
@@ -519,7 +508,6 @@ public class Connect4{
                else if (y >= 2){
                   if (spot == this.board[x][y-1]){
                      if (spot == this.board[x][y-2]){
-                        //if (spot == this.board[x][y-3]){
                            streaks[1]++;
                              
                      }
@@ -528,9 +516,7 @@ public class Connect4{
                //down 2
                else if (y >= 1){
                   if (spot == this.board[x][y-1]){
-                     //if (spot == this.board[x][y-2]){
-                        //if (spot == this.board[x][y-3]){
-                           streaks[2]++;
+                     streaks[2]++;
                              
                      
                   }
@@ -549,7 +535,6 @@ public class Connect4{
                else if (y <= height-3 && x <= width-3){
                   if (spot == this.board[x+1][y+1]){
                      if (spot == this.board[x+2][y+2]){
-                        //if (spot == this.board[x+3][y+3]){
                            streaks[1]++;
                             
                      }
@@ -558,9 +543,7 @@ public class Connect4{
                //upRight 2
                else if (y <= height-2 && x <= width-2){
                   if (spot == this.board[x+1][y+1]){
-                     //if (spot == this.board[x+2][y+2]){
-                        //if (spot == this.board[x+3][y+3]){
-                           streaks[2]++;
+                     streaks[2]++;
                             
                      
                   }
@@ -579,8 +562,7 @@ public class Connect4{
                else if (y >= 2 && x <= width-3){
                   if (spot == this.board[x+1][y-1]){
                      if (spot == this.board[x+2][y-2]){
-                        //if (spot == this.board[x+3][y-3]){
-                           streaks[1]++;
+                        streaks[1]++;
                              
                      }
                   }
@@ -588,9 +570,7 @@ public class Connect4{
                //downRight 2
                else if (y >= 1 && x <= width-2){
                   if (spot == this.board[x+1][y-1]){
-                     //if (spot == this.board[x+2][y-2]){
-                        //if (spot == this.board[x+3][y-3]){
-                           streaks[2]++;
+                     streaks[2]++;
                              
                      
                   }
@@ -609,8 +589,7 @@ public class Connect4{
                else if (y <= height-3 && x >= 2){
                   if (spot == this.board[x-1][y+1]){
                      if (spot == this.board[x-2][y+2]){
-                        //if (spot == this.board[x-3][y+3]){
-                           streaks[1]++;
+                        streaks[1]++;
                             
                      }
                   }
@@ -618,9 +597,7 @@ public class Connect4{
                //upLeft 2
                else if (y <= height-2 && x >= 1){
                   if (spot == this.board[x-1][y+1]){
-                     //if (spot == this.board[x-2][y+2]){
-                        //if (spot == this.board[x-3][y+3]){
-                           streaks[2]++;
+                     streaks[2]++;
                             
                      
                   }
@@ -639,8 +616,7 @@ public class Connect4{
                else if (y >= 2 && x >= 2){
                   if (spot == this.board[x-1][y-1]){
                      if (spot == this.board[x-2][y-2]){
-                        //if (spot == this.board[x-3][y-3]){
-                           streaks[1]++;
+                        streaks[1]++;
                              
                      }
                   }
@@ -648,9 +624,7 @@ public class Connect4{
                //downLeft 2
                else if (y >= 1 && x >= 1){
                   if (spot == this.board[x-1][y-1]){
-                     //if (spot == this.board[x-2][y-2]){
-                        //if (spot == this.board[x-3][y-3]){
-                           streaks[2]++;
+                     streaks[2]++;
                              
                      
                   }
