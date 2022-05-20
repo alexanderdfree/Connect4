@@ -15,7 +15,7 @@ public class Bot{
    input: Connect4 c, int alpha(lower bound of pruning), int beta(upper bound of pruning), int color(which piece the bot is), int depth(how many moves into the future to look)
    output: int score of this move
    ex: */
-      //StdOut.println(c.moveTotal());
+
       //score is 0 if game is a draw
       if (c.gameStatus() == 0) return 0;
 
